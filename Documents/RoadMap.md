@@ -13,7 +13,17 @@ The road map for deployment for App Store.
 		<td>Done</td>
 		<td>
 			<ul>
-				<li>Basic version</li>
+				<li>[DONE]  Basic version</li>
+			<ul>
+		</td>
+	</tr>
+	<tr>
+		<td>1.0.1</td>
+		<td>2013-10-19</td>
+		<td>Done</td>
+		<td>
+			<ul>
+				<li>[DONE]  Change the logo</li>
 			<ul>
 		</td>
 	</tr>
@@ -23,7 +33,6 @@ The road map for deployment for App Store.
 		<td>Doing</td>
 		<td>
 			<ul>
-				<li>[DONE] Change the logo</li>
 				<li>[TODO] Sharing</li>
 				<li>[TODO] New article list UI</li>
 			</ul>
@@ -32,7 +41,7 @@ The road map for deployment for App Store.
 	<tr>
 		<td>1.2.0</td>
 		<td>2013-11-11</td>
-		<td>TODO</td>
+		<td>ToDo</td>
 		<td>
 			<ul>
 				<li>[TODO] Latest days' articles</li>
@@ -42,7 +51,7 @@ The road map for deployment for App Store.
 	<tr>
 		<td>1.3.0</td>
 		<td>2013-11-24</td>
-		<td>TODO</td>
+		<td>ToDo</td>
 		<td>
 			<ul>
 				<li>[TODO] Slogon page with ripple effect</li>
