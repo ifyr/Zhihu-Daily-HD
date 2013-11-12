@@ -1,3 +1,9 @@
-[submodule "ZhihuDailyHD/ZhihuDailyHD/External/URLManager"]
-	path = ZhihuDailyHD/ZhihuDailyHD/External/URLManager
-	url = https://github.com/gaosboy/urlmanager.git
+[submodule "ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Analytics"]
+	path = ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Analytics
+	url = https://github.com/jcccn/UMeng-Analytics-iOS.git
+[submodule "ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Feedback"]
+	path = ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Feedback
+	url = https://github.com/jcccn/UMeng-Feedback-iOS.git
+[submodule "ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK"]
+	path = ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK
+	url = https://github.com/jcccn/ShareSDK-iOS.git

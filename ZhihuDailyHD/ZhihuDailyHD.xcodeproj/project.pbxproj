@@ -33,17 +33,18 @@
 		906A71A01816D8EA004A2D8C /* Icon-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906A719E1816D8EA004A2D8C /* Icon-Spotlight-40@2x.png */; };
 		906A71A31816D91E004A2D8C /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 906A71A11816D91E004A2D8C /* Icon-Small.png */; };
 		906A71A41816D91E004A2D8C /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906A71A21816D91E004A2D8C /* Icon-Small@2x.png */; };
-		9079B54917C4EB2700E1B96A /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9079B54617C4EB2700E1B96A /* libUMFeedback.a */; };
-		9079B54A17C4EB2700E1B96A /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9079B54717C4EB2700E1B96A /* umFeedback.bundle */; };
 		907DAD91179AA66900CB7618 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907DAD90179AA66900CB7618 /* QuartzCore.framework */; };
 		907DAD95179AA98C00CB7618 /* MOLatestNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD94179AA98C00CB7618 /* MOLatestNews.m */; };
 		907DAD98179AA9D300CB7618 /* MONews.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD97179AA9D300CB7618 /* MONews.m */; };
 		907DAD9B179AA9E100CB7618 /* MONewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD9A179AA9E100CB7618 /* MONewsItem.m */; };
 		907DAD9E179AA9F800CB7618 /* MOBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD9D179AA9F800CB7618 /* MOBase.m */; };
 		907DADA1179AAEC500CB7618 /* DailyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DADA0179AAEC500CB7618 /* DailyViewController.m */; };
-		90A728B417C3B33F00B19BA0 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A728AE17C3B33F00B19BA0 /* libMobClickLibrary.a */; };
 		90A728B817C3B38C00B19BA0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A728B717C3B38C00B19BA0 /* libz.dylib */; };
 		90A728BE17C3BB7D00B19BA0 /* OptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A728BD17C3BB7D00B19BA0 /* OptionsViewController.m */; };
+		90DD6DAA183295EE0029EC33 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD6DA7183295EE0029EC33 /* libMobClickLibrary.a */; };
+		90DD6DAB183295EE0029EC33 /* libMobClickLibrary_armv6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD6DA8183295EE0029EC33 /* libMobClickLibrary_armv6.a */; };
+		90DD6DB0183295F90029EC33 /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD6DAD183295F90029EC33 /* libUMFeedback.a */; };
+		90DD6DB1183295F90029EC33 /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90DD6DAE183295F90029EC33 /* umFeedback.bundle */; };
 		C9FFB09EA0834D238DADF154 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53627110FA544CFE969FAEA1 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -86,9 +87,6 @@
 		906A719E1816D8EA004A2D8C /* Icon-Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@2x.png"; sourceTree = "<group>"; };
 		906A71A11816D91E004A2D8C /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		906A71A21816D91E004A2D8C /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		9079B54617C4EB2700E1B96A /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
-		9079B54717C4EB2700E1B96A /* umFeedback.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = umFeedback.bundle; sourceTree = "<group>"; };
-		9079B54817C4EB2700E1B96A /* UMFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMFeedback.h; sourceTree = "<group>"; };
 		907DAD90179AA66900CB7618 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		907DAD93179AA98C00CB7618 /* MOLatestNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOLatestNews.h; sourceTree = "<group>"; };
 		907DAD94179AA98C00CB7618 /* MOLatestNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLatestNews.m; sourceTree = "<group>"; };
@@ -101,11 +99,15 @@
 		907DAD9F179AAEC500CB7618 /* DailyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyViewController.h; sourceTree = "<group>"; };
 		907DADA0179AAEC500CB7618 /* DailyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyViewController.m; sourceTree = "<group>"; };
 		90A728AC17C3B2AC00B19BA0 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		90A728AE17C3B33F00B19BA0 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
-		90A728AF17C3B33F00B19BA0 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		90A728B717C3B38C00B19BA0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		90A728BC17C3BB7C00B19BA0 /* OptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsViewController.h; sourceTree = "<group>"; };
 		90A728BD17C3BB7D00B19BA0 /* OptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsViewController.m; sourceTree = "<group>"; };
+		90DD6DA7183295EE0029EC33 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		90DD6DA8183295EE0029EC33 /* libMobClickLibrary_armv6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary_armv6.a; sourceTree = "<group>"; };
+		90DD6DA9183295EE0029EC33 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		90DD6DAD183295F90029EC33 /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
+		90DD6DAE183295F90029EC33 /* umFeedback.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = umFeedback.bundle; sourceTree = "<group>"; };
+		90DD6DAF183295F90029EC33 /* UMFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMFeedback.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,11 +118,12 @@
 				90A728B817C3B38C00B19BA0 /* libz.dylib in Frameworks */,
 				907DAD91179AA66900CB7618 /* QuartzCore.framework in Frameworks */,
 				9020E164177EFB0D0080D77C /* UIKit.framework in Frameworks */,
+				90DD6DB0183295F90029EC33 /* libUMFeedback.a in Frameworks */,
 				9020E166177EFB0D0080D77C /* Foundation.framework in Frameworks */,
+				90DD6DAB183295EE0029EC33 /* libMobClickLibrary_armv6.a in Frameworks */,
 				9020E168177EFB0D0080D77C /* CoreGraphics.framework in Frameworks */,
+				90DD6DAA183295EE0029EC33 /* libMobClickLibrary.a in Frameworks */,
 				C9FFB09EA0834D238DADF154 /* libPods.a in Frameworks */,
-				90A728B417C3B33F00B19BA0 /* libMobClickLibrary.a in Frameworks */,
-				9079B54917C4EB2700E1B96A /* libUMFeedback.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,8 +221,8 @@
 		9020E1D1177F09750080D77C /* External */ = {
 			isa = PBXGroup;
 			children = (
-				90A728AD17C3B33F00B19BA0 /* UMAnalytics */,
-				9079B54517C4EB2700E1B96A /* UMFeedback */,
+				90DD6DA6183295EE0029EC33 /* UMAnalytics */,
+				90DD6DAC183295F90029EC33 /* UMFeedback */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -247,16 +250,6 @@
 				90286ECD17C4FD1D00D45318 /* AboutViewController.m */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		9079B54517C4EB2700E1B96A /* UMFeedback */ = {
-			isa = PBXGroup;
-			children = (
-				9079B54617C4EB2700E1B96A /* libUMFeedback.a */,
-				9079B54717C4EB2700E1B96A /* umFeedback.bundle */,
-				9079B54817C4EB2700E1B96A /* UMFeedback.h */,
-			);
-			path = UMFeedback;
 			sourceTree = "<group>";
 		};
 		907DAD0A179AA30F00CB7618 /* DataCenters */ = {
@@ -301,13 +294,26 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		90A728AD17C3B33F00B19BA0 /* UMAnalytics */ = {
+		90DD6DA6183295EE0029EC33 /* UMAnalytics */ = {
 			isa = PBXGroup;
 			children = (
-				90A728AE17C3B33F00B19BA0 /* libMobClickLibrary.a */,
-				90A728AF17C3B33F00B19BA0 /* MobClick.h */,
+				90DD6DA7183295EE0029EC33 /* libMobClickLibrary.a */,
+				90DD6DA8183295EE0029EC33 /* libMobClickLibrary_armv6.a */,
+				90DD6DA9183295EE0029EC33 /* MobClick.h */,
 			);
-			path = UMAnalytics;
+			name = UMAnalytics;
+			path = "UMeng-Analytics/UMAnalytics";
+			sourceTree = "<group>";
+		};
+		90DD6DAC183295F90029EC33 /* UMFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				90DD6DAD183295F90029EC33 /* libUMFeedback.a */,
+				90DD6DAE183295F90029EC33 /* umFeedback.bundle */,
+				90DD6DAF183295F90029EC33 /* UMFeedback.h */,
+			);
+			name = UMFeedback;
+			path = "UMeng-Feedback/UMFeedback";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,6 +376,7 @@
 				9020E1C7177F05FD0080D77C /* Default-Landscape@2x~ipad.png in Resources */,
 				906A71A41816D91E004A2D8C /* Icon-Small@2x.png in Resources */,
 				9020E1C8177F05FD0080D77C /* Default-Landscape~ipad.png in Resources */,
+				90DD6DB1183295F90029EC33 /* umFeedback.bundle in Resources */,
 				906A719C1816D8BE004A2D8C /* Icon-76@2x.png in Resources */,
 				9020E1C9177F05FD0080D77C /* Default-Portrait@2x~ipad.png in Resources */,
 				906A719F1816D8EA004A2D8C /* Icon-Spotlight-40.png in Resources */,
@@ -379,7 +386,6 @@
 				9020E1CC177F05FD0080D77C /* Icon-72@2x.png in Resources */,
 				9020E1CD177F05FD0080D77C /* Icon-Small-50.png in Resources */,
 				9020E1CE177F05FD0080D77C /* Icon-Small-50@2x.png in Resources */,
-				9079B54A17C4EB2700E1B96A /* umFeedback.bundle in Resources */,
 				90286ED117C50A8D00D45318 /* about.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,8 +530,10 @@
 				INFOPLIST_FILE = "ZhihuDailyHD/ZhihuDailyHD-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/ZhihuDailyHD/External/UMAnalytics\"",
-					"\"$(SRCROOT)/ZhihuDailyHD/External/UMFeedback\"",
+					"\\\"$(SRCROOT)/ZhihuDailyHD/External/UMAnalytics\\\"",
+					"\\\"$(SRCROOT)/ZhihuDailyHD/External/UMFeedback\\\"",
+					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Analytics/UMAnalytics",
+					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Feedback/UMFeedback",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -548,8 +556,10 @@
 				INFOPLIST_FILE = "ZhihuDailyHD/ZhihuDailyHD-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/ZhihuDailyHD/External/UMAnalytics\"",
-					"\"$(SRCROOT)/ZhihuDailyHD/External/UMFeedback\"",
+					"\\\"$(SRCROOT)/ZhihuDailyHD/External/UMAnalytics\\\"",
+					"\\\"$(SRCROOT)/ZhihuDailyHD/External/UMFeedback\\\"",
+					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Analytics/UMAnalytics",
+					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Feedback/UMFeedback",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
