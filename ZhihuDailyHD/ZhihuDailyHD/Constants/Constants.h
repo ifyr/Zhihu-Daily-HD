@@ -14,4 +14,11 @@
 
 #define UmengAppKey @"senseforce.com"
 
+#define SinaWeiboAppKey         @"2812384762"
+#define SinaWeiboAppSecret      @"2555ef05b3ff680b1e17e0e25c74e016"
+#define SinaWeiboCallbackUrl    @"http://www.senseforce.com"
+
+#define TencentWeiboAppKey      @"801442902"
+#define TencentWeiboAppSecret   @"d152e40c5144a442d8d8ed6cacf3d361"
+
 #endif
