@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *image;
 @property (nonatomic, copy) NSString *share_url;
+@property (nonatomic, copy) NSString *thumbnail;
 @property (nonatomic, copy) NSString *share_image;
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, assign) NSInteger id;

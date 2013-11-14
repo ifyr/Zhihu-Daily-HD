@@ -70,7 +70,7 @@
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dailyViewController];
         navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
         navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        [blockSelf presentModalViewController:navigationController animated:YES];
+        [blockSelf presentViewController:navigationController animated:YES completion:NULL];
     }];
     
     [self fetchNews];

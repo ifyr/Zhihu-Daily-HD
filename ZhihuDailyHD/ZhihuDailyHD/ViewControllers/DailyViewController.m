@@ -2,7 +2,7 @@
 //  DailyViewController.m
 //  ZhihuDailyHD
 //
-//  Created by Jiang Chuncheng on 7/20/13.
+//  Created by Jiang Chuncheng on 11/14/13.
 //  Copyright (c) 2013 SenseForce. All rights reserved.
 //
 
@@ -19,11 +19,12 @@
 #import "OptionsViewController.h"
 #import "AboutViewController.h"
 
-@interface DailyViewController () <UIPopoverControllerDelegate, BDDynamicGridViewDelegate, OptionsDelegate> {
-    UIInterfaceOrientation orientationBeforeDisappearing;
+@interface DailyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIPopoverControllerDelegate, OptionsDelegate> {
+    CGFloat cellWidthPortrait;
+    CGFloat cellWidthLandscape;
 }
 
-@property (nonatomic, strong) NSArray *newsItemViews;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, strong) Reachability *reachability;
 
@@ -49,15 +50,27 @@
 {
     [super viewDidLoad];
     
+    cellWidthPortrait = self.view.bounds.size.width / 2 - 1;
+    cellWidthLandscape = self.view.bounds.size.height / 3 - 1;
+	
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds
+                                                          collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+    collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    collectionView.backgroundColor = [UIColor whiteColor];
+    [collectionView registerClass:[NewsCollectionCell class] forCellWithReuseIdentifier:@"NewsCell"];
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    [self.view addSubview:collectionView];
+    self.collectionView = collectionView;
+    
     self.title = @"知乎日报";
     
     self.hidesBottomBarWhenPushed = YES;
-    orientationBeforeDisappearing = self.interfaceOrientation;
     
     self.reachability = [Reachability reachabilityWithHostname:@"zhihu.com"];
-
+    
     __block BOOL isLoading = NO;
-    __weak DailyViewController *blockSelf = self;
+    __weak __typeof(&*self) blockSelf = self;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                           handler:^(id sender) {
                                                                                               if (isLoading) {
@@ -69,43 +82,13 @@
                                                                                                   isLoading = NO;
                                                                                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                                                                                   if (success) {
-                                                                                                      [blockSelf asyncDataLoading];
+                                                                                                      [blockSelf.collectionView reloadData];
                                                                                                   }
                                                                                               }];
                                                                                           }];
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [leftButton addTarget:self action:@selector(showMoreOptions:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
-    
-	
-    [self setBackgroundColor:[UIColor lightGrayColor]];
-    self.delegate = self;
-    self.onSingleTap = ^(UIView* view, NSInteger viewIndex) {
-        if (viewIndex < [[[[DailyNewsDataCenter sharedInstance] latestNews] news] count]) {
-            MONewsItem *newsItem = [[[[[DailyNewsDataCenter sharedInstance] latestNews] news][viewIndex] items] lastObject];
-            NewsDetailViewController *webViewController = [[NewsDetailViewController alloc] initWithUrl:[newsItem url]];
-//            [blockSelf presentModalViewController:webViewController animated:YES];
-            webViewController.title = newsItem.title;
-            [blockSelf.navigationController pushViewController:webViewController animated:YES];
-        }
-    };
-    
-    [self asyncDataLoading];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:NSStringFromClass([self class])];
-    UIInterfaceOrientation currentOrientation = self.interfaceOrientation;
-    if (orientationBeforeDisappearing != currentOrientation) {
-        orientationBeforeDisappearing = currentOrientation;
-        [self reloadData];
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:NSStringFromClass([self class])];
-    [super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,76 +97,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:NSStringFromClass([self class])];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:NSStringFromClass([self class])];
+    [super viewWillDisappear:animated];
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [self reloadData];
-}
-
-- (void)asyncDataLoading {
-    self.newsItemViews = [NSArray array];
-    //load the placeholder image
-    for (int i = 0, count = [[[[DailyNewsDataCenter sharedInstance] latestNews] news] count]; i < count; i++) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
-        
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 200, 50)];
-        titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        titleLabel.numberOfLines = 0;
-        titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.textColor = [UIColor whiteColor];
-        titleLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5f];
-        titleLabel.alpha = 0.0f;
-        [imageView addSubview:titleLabel];
-        
-        self.newsItemViews = [self.newsItemViews arrayByAddingObject:imageView];
-    }
-    [self reloadData];
-    
-    for (int i = 0, count = [[[[DailyNewsDataCenter sharedInstance] latestNews] news] count]; i < count; i++) {
-        UIImageView *imageView = [self.newsItemViews objectAtIndex:i];
-        MONews *news = [[[[DailyNewsDataCenter sharedInstance] latestNews] news] objectAtIndex:i];
-        
-        [self performSelector:@selector(animateUpdate:)
-                   withObject:@[imageView, news]
-                   afterDelay:0.2 + (arc4random()%3) + (arc4random()%10 * 0.1)];
-    }
-}
-
-- (void) animateUpdate:(NSArray*)objects {
-    UIImageView *imageView = [objects objectAtIndex:0];
-    UILabel *titleLabel = [[imageView subviews] lastObject];
-    if ( ! [titleLabel isKindOfClass:[UILabel class]]) {
-        titleLabel = nil;
-    }
-    MONews *news = [objects objectAtIndex:1];
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         imageView.alpha = 0.0f;
-                         titleLabel.alpha = 0.0f;
-                     }
-                     completion:^(BOOL finished) {
-                         NSString *url;
-                         if ([self.reachability isReachableViaWiFi]) {
-                             url = [(MONewsItem *)[[news items] lastObject] image];
-                         }
-                         if ( ! [url length]) {
-                             url = [news thumbnail];
-                         }
-                         [imageView setImageWithURL:[NSURL URLWithString:url]];
-                         titleLabel.text = [news title];
-                         [UIView animateWithDuration:0.5
-                                          animations:^{
-                                              imageView.alpha = 1;
-                                              titleLabel.alpha = 1;
-                                          }
-                                          completion:^(BOOL finished) {
-                                              NSArray *visibleRowInfos =  [self visibleRowInfos];
-                                              for (BDRowInfo *rowInfo in visibleRowInfos) {
-                                                  [self updateLayoutWithRow:rowInfo animiated:YES];
-                                              }
-                                          }];
-                     }];
+    [self.collectionView performBatchUpdates:nil completion:nil];
 }
 
 - (IBAction)showMoreOptions:(id)sender {
@@ -245,35 +171,104 @@
     }
 }
 
-#pragma mark - BDDynamicGridViewController
+#pragma mark - UICollectionViewDataSource
 
-- (NSUInteger)maximumViewsPerCell {
-    return 3;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [[[[DailyNewsDataCenter sharedInstance] latestNews] news] count];
 }
 
-- (NSUInteger)numberOfViews {
-//    return [[[[DailyNewsDataCenter sharedInstance] latestNews] news] count];
-    return [self.newsItemViews count];
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
 }
 
-- (UIView*) viewAtIndex:(NSUInteger)index rowInfo:(BDRowInfo*)rowInfo {
-    /*
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.clipsToBounds = YES;
-    [imageView setImageWithURL:[NSURL URLWithString:[[[[DailyNewsDataCenter sharedInstance] latestNews] news][index] thumbnail]]
-              placeholderImage:nil];
-    return imageView;
-     */
-    return self.newsItemViews[index];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *reuseId = @"NewsCell";
+    NewsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseId forIndexPath:indexPath];
+    if ( ! cell) {
+        cell = [[NewsCollectionCell alloc] initWithFrame:CGRectMake(0, 0, 384, 384)];
+    }
+    
+    MONews *news = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
+    
+    NSString *url;
+    if ([self.reachability isReachableViaWiFi]) {
+        MONewsItem *newsItem = [[[[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row] items] lastObject];
+        url = newsItem.image;
+    }
+    if ( ! [url length]) {
+        url = news.thumbnail;
+    }
+    [cell.imageView setImageWithURL:[NSURL URLWithString:url]];
+    cell.titleLabel.text = [news title];
+    
+    return cell;
 }
 
-- (NSUInteger)minimumViewsPerCell {
-    return 2;
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (UIDeviceOrientationIsPortrait(self.interfaceOrientation)) {
+        return CGSizeMake(cellWidthPortrait, cellWidthPortrait);
+    }
+    else {
+        return CGSizeMake(cellWidthLandscape, cellWidthLandscape);
+    }
 }
 
-- (CGFloat) rowHeightForRowInfo:(BDRowInfo*)rowInfo {
-    return 200;
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsZero;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 1;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 1;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    
+    MONewsItem *newsItem = [[[[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row] items] lastObject];
+    NewsDetailViewController *webViewController = [[NewsDetailViewController alloc] initWithUrl:[newsItem url]];
+    webViewController.title = newsItem.title;
+    [self.navigationController pushViewController:webViewController animated:YES];
+}
+
+
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+@end
+
+
+@implementation NewsCollectionCell
+
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self addSubview:imageView];
+        self.imageView = imageView;
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height - 50, frame.size.width, 50)];
+        titleLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        titleLabel.numberOfLines = 0;
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
+        [self addSubview:titleLabel];
+        self.titleLabel = titleLabel;
+    }
+    return self;
 }
 
 @end

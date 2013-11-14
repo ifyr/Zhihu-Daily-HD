@@ -2,13 +2,20 @@
 //  DailyViewController.h
 //  ZhihuDailyHD
 //
-//  Created by Jiang Chuncheng on 7/20/13.
+//  Created by Jiang Chuncheng on 11/14/13.
 //  Copyright (c) 2013 SenseForce. All rights reserved.
 //
 
-#import "BDDynamicGridViewController.h"
+#import <UIKit/UIKit.h>
 #import "MobClick.h"
 
-@interface DailyViewController : BDDynamicGridViewController
+@interface DailyViewController : UIViewController
+
+@end
+
+@interface NewsCollectionCell : UICollectionViewCell
+
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *titleLabel;
 
 @end

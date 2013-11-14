@@ -35,11 +35,29 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.1</string>
+	<string>1.1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string></string>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wb2812384762</string>
+				<string>wb801442902</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>LSRequiresIPhoneOS</key>
@@ -91,24 +109,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string></string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>wb2812384762</string>
-				<string>wb801442902</string>
-			</array>
-			<key>CFBundleTypeRole</key>
-			<string></string>
-		</dict>
 	</array>
 </dict>
 </plist>
