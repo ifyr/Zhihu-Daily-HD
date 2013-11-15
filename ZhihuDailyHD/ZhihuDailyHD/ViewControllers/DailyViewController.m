@@ -198,7 +198,7 @@
     if ( ! [url length]) {
         url = news.thumbnail;
     }
-    [cell.imageView setImageWithURL:[NSURL URLWithString:url]];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     cell.titleLabel.text = [news title];
     
     return cell;
@@ -235,6 +235,7 @@
     
     MONewsItem *newsItem = [[[[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row] items] lastObject];
     NewsDetailViewController *webViewController = [[NewsDetailViewController alloc] initWithUrl:[newsItem url]];
+    webViewController.newsItem = newsItem;
     webViewController.title = newsItem.title;
     [self.navigationController pushViewController:webViewController animated:YES];
 }

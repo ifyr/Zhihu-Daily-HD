@@ -10,10 +10,14 @@
 #import <BlocksKit/UIWebView+BlocksKit.h>
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <ShareSDK/ShareSDK.h>
+#import "Constants.h"
 
 @interface NewsDetailViewController () <UIWebViewDelegate>
 
 @property (nonatomic, copy) NSString *url;
+
+- (void)shareTheNews;
 
 @end
 
@@ -50,12 +54,18 @@
     self.webView.delegate = self;
     
     __weak NewsDetailViewController *blockSelf = self;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                                                          handler:^(id sender) {
-                                                                                              if ( ! [blockSelf.webView isLoading]) {
-                                                                                                  [blockSelf.webView reload];
-                                                                                              }
-                                                                                          }];
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                                  handler:^(id sender) {
+                                                                                      if ( ! [blockSelf.webView isLoading]) {
+                                                                                          [blockSelf.webView reload];
+                                                                                      }
+                                                                                  }];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply
+                                                                                handler:^(id sender) {
+                                                                                    [blockSelf shareTheNews];
+                                                                                }];
+    self.navigationItem.rightBarButtonItems = @[refreshButton, shareButton];
+
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
 }
@@ -75,6 +85,63 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)shareTheNews {
+    NSString *content = self.newsItem.title;
+    if ( ! [content length]) {
+        content = self.title;
+    }
+    content = [content stringByAppendingFormat:@" %@ 来自【知乎日报HD】%@", self.newsItem.share_url, AppStoreShortUrl];
+    
+    id<ISSContent> publishContent = [ShareSDK content:content
+                                       defaultContent:[@"知乎日报HD " stringByAppendingString:AppStoreUrl]
+                                                image:[ShareSDK imageWithUrl:self.newsItem.share_image]
+                                                title:@"知乎日报"
+                                                  url:AppStoreUrl
+                                          description:content
+                                            mediaType:SSPublishContentMediaTypeText];
+    
+    id<ISSAuthOptions> authOptions = [ShareSDK authOptionsWithAutoAuth:YES
+                                                         allowCallback:NO
+                                                         authViewStyle:SSAuthViewStylePopup
+                                                          viewDelegate:nil
+                                               authManagerViewDelegate:nil];
+    [authOptions setPowerByHidden:YES];
+    
+    id<ISSShareOptions> shareOptions = [ShareSDK defaultShareOptionsWithTitle:@"分享好内容"
+                                                              oneKeyShareList:nil
+                                                               qqButtonHidden:NO
+                                                        wxSessionButtonHidden:NO
+                                                       wxTimelineButtonHidden:NO
+                                                         showKeyboardOnAppear:NO
+                                                            shareViewDelegate:nil
+                                                          friendsViewDelegate:nil
+                                                        picViewerViewDelegate:nil];
+    
+    id<ISSContainer> container = [ShareSDK container];
+    [container setIPadContainerWithBarButtonItem:[self.navigationItem.rightBarButtonItems lastObject]
+                                     arrowDirect:UIPopoverArrowDirectionUp];
+    
+    [ShareSDK showShareActionSheet:container
+                         shareList:nil
+                           content:publishContent
+                     statusBarTips:YES
+                       authOptions:authOptions
+                      shareOptions:shareOptions
+                            result:^(ShareType type, SSPublishContentState state, id<ISSStatusInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                if (state == SSResponseStateSuccess) {
+                                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                                    hud.removeFromSuperViewOnHide = YES;
+                                    hud.mode = MBProgressHUDModeText;
+                                    hud.labelText = @"分享成功";
+                                    [hud hide:YES afterDelay:1.0f];
+                                }
+                                else if (state == SSResponseStateFail) {
+                                    NSLog(@"分享失败,错误码:%d,错误描述:%@", [error errorCode], [error errorDescription]);
+                                }
+                            }];
+}
+
 
 #pragma mark - UIWebViewDelegate
 

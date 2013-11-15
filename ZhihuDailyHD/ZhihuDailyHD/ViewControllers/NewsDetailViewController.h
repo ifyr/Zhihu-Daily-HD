@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MobClick.h"
+#import "DailyNewsDataCenter.h"
 
 @interface NewsDetailViewController : UIViewController
 
 @property (nonatomic, strong) UIWebView *webView;
+
+@property (nonatomic, strong) MONewsItem *newsItem;
 
 - (id)initWithUrl:(NSString *)urlString;
 
