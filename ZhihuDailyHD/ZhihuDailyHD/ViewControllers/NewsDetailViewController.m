@@ -137,7 +137,7 @@ static char *keySharingRetryed;
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithBarButtonItem:[self.navigationItem.rightBarButtonItems lastObject]
                                      arrowDirect:UIPopoverArrowDirectionUp];
-    __weak NewsDetailViewController *weakSelf = self;
+    
     [ShareSDK showShareActionSheet:container
                          shareList:shareList
                            content:publishContent

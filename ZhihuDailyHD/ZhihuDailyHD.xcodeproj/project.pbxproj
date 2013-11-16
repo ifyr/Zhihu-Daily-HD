@@ -741,14 +741,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)/ZhihuDailyHD/External/URLManager/Test\\\"",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Connection",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Core",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/GooglePlusSDK",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/Pinterest.embeddedframework",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/RenRenSDK",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/UI",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Connection\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Core\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/GooglePlusSDK\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/Pinterest.embeddedframework\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/RenRenSDK\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/UI\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZhihuDailyHD/ZhihuDailyHD-Prefix.pch";
@@ -756,13 +756,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\\\\\"$(SRCROOT)/ZhihuDailyHD/External/UMAnalytics\\\\\\\"",
-					"\\\\\\\"$(SRCROOT)/ZhihuDailyHD/External/UMFeedback\\\\\\\"",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Analytics/UMAnalytics",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Feedback/UMFeedback",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/libWeiboSDK",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/SDKExport",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/TencentWeiboSSO",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/UMeng-Analytics/UMAnalytics\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/UMeng-Feedback/UMFeedback\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/libWeiboSDK\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/SDKExport\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/TencentWeiboSSO\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -779,14 +777,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)/ZhihuDailyHD/External/URLManager/Test\\\"",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Connection",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Core",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/GooglePlusSDK",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/Pinterest.embeddedframework",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/RenRenSDK",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/UI",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Connection\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Core\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/GooglePlusSDK\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/Pinterest.embeddedframework\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/RenRenSDK\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/UI\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZhihuDailyHD/ZhihuDailyHD-Prefix.pch";
@@ -794,13 +792,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\\\\\"$(SRCROOT)/ZhihuDailyHD/External/UMAnalytics\\\\\\\"",
-					"\\\\\\\"$(SRCROOT)/ZhihuDailyHD/External/UMFeedback\\\\\\\"",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Analytics/UMAnalytics",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/UMeng-Feedback/UMFeedback",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/libWeiboSDK",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/SDKExport",
-					"/Volumes/HD/Users/jcccn/Projects/GitHub/jcccn/Zhihu-Daily-HD/ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/TencentWeiboSSO",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/UMeng-Analytics/UMAnalytics\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/UMeng-Feedback/UMFeedback\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/libWeiboSDK\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/SDKExport\"",
+					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/TencentWeiboSSO\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
