@@ -34,6 +34,6 @@
 #define YinXiangAppSecret       @"6cea171d8591f75b"
 
 #define PocketAppSecret         @"20427-e7980754077d3b19739c8c34"
-#define PocketCallbackUrl       @"http://www.senseforce.com"
+#define PocketCallbackUrl       @"pocketapp89757"
 
 #endif

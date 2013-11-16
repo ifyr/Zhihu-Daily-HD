@@ -10,6 +10,7 @@
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import <Reachability/Reachability.h>
 #import <Appirater/Appirater.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "UMFeedback.h"
 
 #import "Constants.h"
@@ -78,9 +79,13 @@
                                                                                               }
                                                                                               isLoading = YES;
                                                                                               [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                                                                                              MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:blockSelf.view animated:YES];
+                                                                                              hud.removeFromSuperViewOnHide = YES;
+                                                                                              [hud hide:YES afterDelay:5.0f];
                                                                                               [[DailyNewsDataCenter sharedInstance] reloadData:^(BOOL success) {
                                                                                                   isLoading = NO;
                                                                                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                                                                                  [MBProgressHUD hideAllHUDsForView:blockSelf.view animated:YES];
                                                                                                   if (success) {
                                                                                                       [blockSelf.collectionView reloadData];
                                                                                                   }

@@ -7,11 +7,14 @@
 //
 
 #import "NewsDetailViewController.h"
+#import <BlocksKit/NSObject+AssociatedObjects.h>
 #import <BlocksKit/UIWebView+BlocksKit.h>
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <ShareSDK/ShareSDK.h>
 #import "Constants.h"
+
+static char *keySharingRetryed;
 
 @interface NewsDetailViewController () <UIWebViewDelegate>
 
@@ -91,7 +94,7 @@
     if ( ! [content length]) {
         content = self.title;
     }
-    content = [content stringByAppendingFormat:@" %@ 来自【知乎日报HD】%@", self.newsItem.share_url, AppStoreShortUrl];
+    content = [content stringByAppendingFormat:@" %@ (来自【知乎日报HD】%@)", self.newsItem.share_url, AppStoreShortUrl];
     
     id<ISSContent> publishContent = [ShareSDK content:content
                                        defaultContent:[@"知乎日报HD " stringByAppendingString:AppStoreUrl]
@@ -108,8 +111,21 @@
                                                authManagerViewDelegate:nil];
     [authOptions setPowerByHidden:YES];
     
+    NSArray *shareList = [ShareSDK getShareListWithType:
+                          ShareTypeSinaWeibo,
+                          ShareTypeTencentWeibo,
+                          ShareTypeWeixiTimeline,
+                          ShareTypeWeixiSession,
+                          ShareTypePocket,
+                          ShareTypeEvernote,
+                          ShareTypeMail,
+                          ShareTypeCopy,
+                          ShareTypeAirPrint,
+                          ShareTypeQQSpace,
+                          ShareTypeQQ,
+                          nil];
     id<ISSShareOptions> shareOptions = [ShareSDK defaultShareOptionsWithTitle:@"分享好内容"
-                                                              oneKeyShareList:nil
+                                                              oneKeyShareList:shareList
                                                                qqButtonHidden:NO
                                                         wxSessionButtonHidden:NO
                                                        wxTimelineButtonHidden:NO
@@ -121,9 +137,9 @@
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithBarButtonItem:[self.navigationItem.rightBarButtonItems lastObject]
                                      arrowDirect:UIPopoverArrowDirectionUp];
-    
+    __weak NewsDetailViewController *weakSelf = self;
     [ShareSDK showShareActionSheet:container
-                         shareList:nil
+                         shareList:shareList
                            content:publishContent
                      statusBarTips:YES
                        authOptions:authOptions
@@ -138,6 +154,27 @@
                                 }
                                 else if (state == SSResponseStateFail) {
                                     NSLog(@"分享失败,错误码:%d,错误描述:%@", [error errorCode], [error errorDescription]);
+                                    //Fix for sina weibo image url sharing
+                                    if (type == ShareTypeSinaWeibo) {
+                                        BOOL retryed = [[(NSObject *)publishContent associatedValueForKey:keySharingRetryed] boolValue];
+                                        if ( ! retryed) {
+                                            [(NSObject *)publishContent atomicallyAssociateCopyOfValue:@(YES) withKey:keySharingRetryed];
+                                            id<ISSContent> weiboContent = [ShareSDK content:content
+                                                                             defaultContent:[@"知乎日报HD " stringByAppendingString:AppStoreUrl]
+                                                                                      image:nil
+                                                                                      title:nil
+                                                                                        url:nil
+                                                                                description:content
+                                                                                  mediaType:SSPublishContentMediaTypeText];
+                                            [ShareSDK shareContent:weiboContent
+                                                              type:ShareTypeSinaWeibo
+                                                       authOptions:authOptions
+                                                     statusBarTips:YES
+                                                            result:^(ShareType type, SSPublishContentState state, id<ISSStatusInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                                                
+                                                            }];
+                                        }
+                                    }
                                 }
                             }];
 }

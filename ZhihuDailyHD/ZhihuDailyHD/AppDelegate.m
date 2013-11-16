@@ -139,7 +139,7 @@
                                redirectUri:PocketCallbackUrl];
     
     //添加印象笔记应用
-    [ShareSDK connectEvernoteWithType:SSEverNoteTypeSandbox
+    [ShareSDK connectEvernoteWithType:SSEverNoteTypeCN
                           consumerKey:YinXiangAppKey
                        consumerSecret:YinXiangAppSecret];
 }

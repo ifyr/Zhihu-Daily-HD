@@ -33,6 +33,7 @@
 		906A71A01816D8EA004A2D8C /* Icon-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906A719E1816D8EA004A2D8C /* Icon-Spotlight-40@2x.png */; };
 		906A71A31816D91E004A2D8C /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 906A71A11816D91E004A2D8C /* Icon-Small.png */; };
 		906A71A41816D91E004A2D8C /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906A71A21816D91E004A2D8C /* Icon-Small@2x.png */; };
+		907A252218376D97009B45E4 /* PrintConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A252118376D97009B45E4 /* PrintConnection.framework */; };
 		907DAD91179AA66900CB7618 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907DAD90179AA66900CB7618 /* QuartzCore.framework */; };
 		907DAD95179AA98C00CB7618 /* MOLatestNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD94179AA98C00CB7618 /* MOLatestNews.m */; };
 		907DAD98179AA9D300CB7618 /* MONews.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD97179AA9D300CB7618 /* MONews.m */; };
@@ -119,6 +120,7 @@
 		906A719E1816D8EA004A2D8C /* Icon-Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@2x.png"; sourceTree = "<group>"; };
 		906A71A11816D91E004A2D8C /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		906A71A21816D91E004A2D8C /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		907A252118376D97009B45E4 /* PrintConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PrintConnection.framework; sourceTree = "<group>"; };
 		907DAD90179AA66900CB7618 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		907DAD93179AA98C00CB7618 /* MOLatestNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOLatestNews.h; sourceTree = "<group>"; };
 		907DAD94179AA98C00CB7618 /* MOLatestNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLatestNews.m; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				90892F0F183685F60097E77F /* ShareSDK.framework in Frameworks */,
 				90892EFC183685F50097E77F /* WeChatConnection.framework in Frameworks */,
 				90892F01183685F50097E77F /* ShareSDKCoreService.framework in Frameworks */,
+				907A252218376D97009B45E4 /* PrintConnection.framework in Frameworks */,
 				90892EEF183685F50097E77F /* PocketConnection.framework in Frameworks */,
 				907DAD91179AA66900CB7618 /* QuartzCore.framework in Frameworks */,
 				90892F11183685F60097E77F /* ShareSDKiPadDefaultShareViewUI.framework in Frameworks */,
@@ -409,6 +412,7 @@
 				90892E9E183685F50097E77F /* EverNoteConnection.framework */,
 				90892EA6183685F50097E77F /* MailConnection.framework */,
 				90892EA8183685F50097E77F /* PocketConnection.framework */,
+				907A252118376D97009B45E4 /* PrintConnection.framework */,
 				90892EAA183685F50097E77F /* QQConnection.framework */,
 				90892EAB183685F50097E77F /* QZoneConnection.framework */,
 				90892EAD183685F50097E77F /* SinaWeiboConnection.framework */,
