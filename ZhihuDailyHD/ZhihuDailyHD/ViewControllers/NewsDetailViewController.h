@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) UIWebView *webView;
 
-@property (nonatomic, strong) MONewsItem *newsItem;
+@property (nonatomic, strong) MONews *news;
 
 - (id)initWithUrl:(NSString *)urlString;
 

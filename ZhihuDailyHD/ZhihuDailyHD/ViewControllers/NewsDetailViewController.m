@@ -7,9 +7,7 @@
 //
 
 #import "NewsDetailViewController.h"
-#import <BlocksKit/NSObject+AssociatedObjects.h>
-#import <BlocksKit/UIWebView+BlocksKit.h>
-#import <BlocksKit/UIBarButtonItem+BlocksKit.h>
+#import <BlocksKit/BlocksKit.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <ShareSDK/ShareSDK.h>
 #import "Constants.h"
@@ -23,6 +21,10 @@ static char *keySharingRetryed;
 @property (nonatomic, weak) id<ISSShareActionSheet> shareActionSheet;
 
 - (void)shareTheNews;
+
+- (void)switchToPreArticle;
+- (void)switchToNextArticle;
+- (void)startSwipeAnimationWithDirection:(BOOL)fromRightToLeft;
 
 @end
 
@@ -52,6 +54,7 @@ static char *keySharingRetryed;
     self.hidesBottomBarWhenPushed = NO;
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.scalesPageToFit = YES;
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.webView];
@@ -71,6 +74,24 @@ static char *keySharingRetryed;
                                                                                 }];
     self.navigationItem.rightBarButtonItems = @[refreshButton, shareButton];
 
+    //Gestures
+    UISwipeGestureRecognizer *swipeLeftGesture = [[UISwipeGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+        if (blockSelf.webView.isLoading) {
+            return;
+        }
+        [blockSelf switchToNextArticle];
+    }];
+    swipeLeftGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeftGesture];
+    
+    UISwipeGestureRecognizer *swipeRightGesture = [[UISwipeGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+        if (blockSelf.webView.isLoading) {
+            return;
+        }
+        [blockSelf switchToPreArticle];
+    }];
+    swipeRightGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRightGesture];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
 }
@@ -93,17 +114,18 @@ static char *keySharingRetryed;
 }
 
 - (void)shareTheNews {
-    NSString *content = self.newsItem.title;
+    MONewsItem *newsItem = [[self.news items] lastObject];
+    NSString *content = newsItem.title;
     if ( ! [content length]) {
         content = self.title;
     }
-    content = [content stringByAppendingFormat:@" %@ (来自【知乎日报HD】%@)", self.newsItem.share_url, AppStoreShortUrl];
+    content = [content stringByAppendingFormat:@" %@ (来自【知乎日报HD】%@)", newsItem.share_url, AppStoreShortUrl];
     
     id<ISSContent> publishContent = [ShareSDK content:content
                                        defaultContent:[@"知乎日报HD " stringByAppendingString:AppStoreUrl]
-                                                image:[ShareSDK imageWithUrl:self.newsItem.share_image]
+                                                image:[ShareSDK imageWithUrl:newsItem.share_image]
                                                 title:@"知乎日报"
-                                                  url:self.newsItem.share_url
+                                                  url:newsItem.share_url
                                           description:content
                                             mediaType:SSPublishContentMediaTypeText];
     
@@ -183,6 +205,59 @@ static char *keySharingRetryed;
                             }];
 }
 
+- (void)switchToPreArticle {
+    NSArray *newsArray = [[[DailyNewsDataCenter sharedInstance] latestNews] news];
+    NSInteger currentIndex = [newsArray indexOfObject:self.news];
+    
+    if (currentIndex == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        MONews *preNews = newsArray[currentIndex - 1];
+        self.news = preNews;
+        self.url = [(MONewsItem *)[[preNews items] lastObject] url];
+        self.title = [(MONewsItem *)[[preNews items] lastObject] title];
+        
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+        
+        [self startSwipeAnimationWithDirection:NO];
+    }
+}
+
+- (void)switchToNextArticle {
+    NSArray *newsArray = [[[DailyNewsDataCenter sharedInstance] latestNews] news];
+    NSInteger currentIndex = [newsArray indexOfObject:self.news];
+    
+    if (currentIndex == [newsArray count] - 1) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.removeFromSuperViewOnHide = YES;
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"后面没有了";
+        [hud hide:YES afterDelay:1.0f];
+    }
+    else {
+        MONews *nextNews = newsArray[currentIndex + 1];
+        self.news = nextNews;
+        self.url = [(MONewsItem *)[[nextNews items] lastObject] url];
+        self.title = [(MONewsItem *)[[nextNews items] lastObject] title];
+        
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+        
+        [self startSwipeAnimationWithDirection:YES];
+    }
+}
+
+- (void)startSwipeAnimationWithDirection:(BOOL)fromRightToLeft {
+    [self.view.layer removeAllAnimations];
+    
+    CATransition *animation = [CATransition animation];
+    animation.duration = 0.3f;
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.fillMode = kCAFillModeForwards;
+    animation.type = kCATransitionPush;
+    animation.subtype = (fromRightToLeft ? kCATransitionFromRight : kCATransitionFromLeft);
+    [self.view.layer addAnimation:animation forKey:kCATransition];
+}
 
 #pragma mark - UIWebViewDelegate
 
@@ -195,6 +270,9 @@ static char *keySharingRetryed;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    if ([[webView.request.URL absoluteString] isEqualToString:self.url]) {
+        [webView.scrollView setContentOffset:CGPointMake(0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 210 : 150) animated:NO];
+    }
     [[MBProgressHUD HUDForView:self.view] hide:YES];
 }
 

@@ -238,9 +238,10 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
-    MONewsItem *newsItem = [[[[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row] items] lastObject];
+    MONews *news = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
+    MONewsItem *newsItem = [[news items] lastObject];
     NewsDetailViewController *webViewController = [[NewsDetailViewController alloc] initWithUrl:[newsItem url]];
-    webViewController.newsItem = newsItem;
+    webViewController.news = news;
     webViewController.title = newsItem.title;
     [self.navigationController pushViewController:webViewController animated:YES];
 }

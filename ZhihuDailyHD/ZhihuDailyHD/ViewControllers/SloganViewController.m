@@ -22,6 +22,7 @@
 - (UIImage*)launchImageForOrientation:(UIInterfaceOrientation)orientation;
 
 - (void)fetchNews;
+- (void)requestToShowNews;
 
 @end
 
@@ -44,7 +45,7 @@
     
     self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     self.backgroundImageView.image = [self launchImageForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
-    self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
+    self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.backgroundImageView];
     
     self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height / 2 + 150, self.view.bounds.size.width, 100)];
@@ -57,21 +58,14 @@
     	
     __weak SloganViewController *blockSelf = self;
     [self.view whenTapped:^{
-        if (self.isFetching) {
-            blockSelf.hintLabel.text = @"还在狂奔给您拿今日知乎，客官不要慌...";
-            return;
-        }
-        else if ( ! [[DailyNewsDataCenter sharedInstance] latestNews]) {
-            [blockSelf fetchNews];
-            return;
-        }
-        [blockSelf.hintLabel.layer removeAllAnimations];
-        DailyViewController *dailyViewController = [[DailyViewController alloc] init];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dailyViewController];
-        navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
-        navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        [blockSelf presentViewController:navigationController animated:YES completion:NULL];
+        [blockSelf requestToShowNews];
     }];
+    
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+        [blockSelf requestToShowNews];
+    }];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionUp;
+    [self.view addGestureRecognizer:swipeGesture];
     
     [self fetchNews];
 }
@@ -98,6 +92,23 @@
             blockSelf.hintLabel.text = @"跑腿的路上遇到点问题，轻触屏幕重新来过";
         }
     }];
+}
+
+- (void)requestToShowNews {
+    if (self.isFetching) {
+        self.hintLabel.text = @"还在狂奔给您拿今日知乎，客官不要慌...";
+        return;
+    }
+    else if ( ! [[DailyNewsDataCenter sharedInstance] latestNews]) {
+        [self fetchNews];
+        return;
+    }
+    [self.hintLabel.layer removeAllAnimations];
+    DailyViewController *dailyViewController = [[DailyViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dailyViewController];
+    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:NULL];
 }
 
 - (void)didReceiveMemoryWarning
