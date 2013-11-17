@@ -9,11 +9,11 @@
 #ifndef ZhihuDailyHD_Constants_h
 #define ZhihuDailyHD_Constants_h
 
-#define AppId       @"690022289"
-#define AppStoreUrl @"https://itunes.apple.com/cn/app/zhi-hu-ri-baohd/id690022289"
-#define AppStoreShortUrl    @"http://t.cn/8DFg9mw"
+#define AppId                   @"690022289"
+#define AppStoreUrl             @"https://itunes.apple.com/cn/app/zhi-hu-ri-baohd/id690022289"
+#define AppStoreShortUrl        @"http://t.cn/8DFg9mw"
 
-#define UmengAppKey @"senseforce.com"
+#define UmengAppKey             @"senseforce.com"
 
 #define ShareSDKAppKey          @"c9dc95c32d7"
 

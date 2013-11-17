@@ -20,6 +20,8 @@ static char *keySharingRetryed;
 
 @property (nonatomic, copy) NSString *url;
 
+@property (nonatomic, weak) id<ISSShareActionSheet> shareActionSheet;
+
 - (void)shareTheNews;
 
 @end
@@ -51,7 +53,7 @@ static char *keySharingRetryed;
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.scalesPageToFit = YES;
-    self.webView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.webView];
     
     self.webView.delegate = self;
@@ -63,7 +65,7 @@ static char *keySharingRetryed;
                                                                                           [blockSelf.webView reload];
                                                                                       }
                                                                                   }];
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                 handler:^(id sender) {
                                                                                     [blockSelf shareTheNews];
                                                                                 }];
@@ -79,6 +81,7 @@ static char *keySharingRetryed;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [self.shareActionSheet dismiss];
     [MobClick endLogPageView:NSStringFromClass([self class])];
     [super viewWillDisappear:animated];
 }
@@ -100,7 +103,7 @@ static char *keySharingRetryed;
                                        defaultContent:[@"知乎日报HD " stringByAppendingString:AppStoreUrl]
                                                 image:[ShareSDK imageWithUrl:self.newsItem.share_image]
                                                 title:@"知乎日报"
-                                                  url:AppStoreUrl
+                                                  url:self.newsItem.share_url
                                           description:content
                                             mediaType:SSPublishContentMediaTypeText];
     
@@ -138,6 +141,7 @@ static char *keySharingRetryed;
     [container setIPadContainerWithBarButtonItem:[self.navigationItem.rightBarButtonItems lastObject]
                                      arrowDirect:UIPopoverArrowDirectionUp];
     
+    self.shareActionSheet =
     [ShareSDK showShareActionSheet:container
                          shareList:shareList
                            content:publishContent
