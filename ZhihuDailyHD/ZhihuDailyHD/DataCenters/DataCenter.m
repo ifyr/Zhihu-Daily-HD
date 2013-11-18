@@ -35,4 +35,8 @@
     loadOver(YES);
 }
 
+- (void)didReceiveMemoryWarning {
+    
+}
+
 @end

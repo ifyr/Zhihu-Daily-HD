@@ -17,6 +17,7 @@ static char *keySharingRetryed;
 
 @interface NewsDetailViewController () <UIWebViewDelegate>
 
+@property (nonatomic, strong) MODailyNews *dailyNews;
 @property (nonatomic, strong) MONewsItem *news;
 
 @property (nonatomic, weak) id<ISSShareActionSheet> shareActionSheet;
@@ -42,9 +43,10 @@ static char *keySharingRetryed;
     return self;
 }
 
-- (id)initWithNewsItem:(MONewsItem *)news {
+- (id)initWithNewsItem:(MONewsItem *)news inDailyNews:(MODailyNews *)dailyNews {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
+        self.dailyNews = dailyNews;
         self.news = news;
     }
     return self;
@@ -227,7 +229,7 @@ static char *keySharingRetryed;
 }
 
 - (void)switchToPreArticle {
-    NSArray *newsArray = [[[DailyNewsDataCenter sharedInstance] latestNews] news];
+    NSArray *newsArray = [self.dailyNews news];
     NSInteger currentIndex = [newsArray indexOfObject:self.news];
     
     if (currentIndex == 0) {
@@ -245,7 +247,7 @@ static char *keySharingRetryed;
 }
 
 - (void)switchToNextArticle {
-    NSArray *newsArray = [[[DailyNewsDataCenter sharedInstance] latestNews] news];
+    NSArray *newsArray = [self.dailyNews news];
     NSInteger currentIndex = [newsArray indexOfObject:self.news];
     
     if (currentIndex == [newsArray count] - 1) {

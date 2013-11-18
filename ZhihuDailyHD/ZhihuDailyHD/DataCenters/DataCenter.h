@@ -16,4 +16,6 @@
 
 - (void)reloadData:(void (^)(BOOL success))loadOver;
 
+- (void)didReceiveMemoryWarning;
+
 @end

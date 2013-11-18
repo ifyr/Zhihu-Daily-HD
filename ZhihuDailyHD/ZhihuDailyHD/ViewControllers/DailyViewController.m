@@ -7,7 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import <BlocksKit/UIBarButtonItem+BlocksKit.h>
+#import <BlocksKit/BlocksKit.h>
 #import <Reachability/Reachability.h>
 #import <Appirater/Appirater.h>
 #import <MBProgressHUD/MBProgressHUD.h>
@@ -25,6 +25,8 @@
     CGFloat cellWidthLandscape;
 }
 
+@property (nonatomic, strong) MODailyNews *dailyNews;
+
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, strong) Reachability *reachability;
@@ -33,6 +35,12 @@
 @property (nonatomic, strong) UIPopoverController *popover;
 
 - (IBAction)showMoreOptions:(id)sender;
+
+- (void)switchToPreDay;
+- (void)switchToNextDay;
+- (void)startSwipeAnimationWithDirection:(BOOL)fromRightToLeft;
+
+- (void)reloadCollectionViewWithDailyNews:(MODailyNews *)dailyNews;
 
 @end
 
@@ -71,7 +79,7 @@
     self.reachability = [Reachability reachabilityWithHostname:@"zhihu.com"];
     
     __block BOOL isLoading = NO;
-    __weak __typeof(&*self) blockSelf = self;
+    __weak __typeof(&*self) weakSelf = self;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                           handler:^(id sender) {
                                                                                               if (isLoading) {
@@ -79,27 +87,50 @@
                                                                                               }
                                                                                               isLoading = YES;
                                                                                               [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-                                                                                              MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:blockSelf.view animated:YES];
+                                                                                              MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:weakSelf.view animated:YES];
                                                                                               hud.removeFromSuperViewOnHide = YES;
                                                                                               [hud hide:YES afterDelay:5.0f];
                                                                                               [[DailyNewsDataCenter sharedInstance] reloadData:^(BOOL success) {
                                                                                                   isLoading = NO;
                                                                                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                                                                                                  [MBProgressHUD hideAllHUDsForView:blockSelf.view animated:YES];
+                                                                                                  [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
                                                                                                   if (success) {
-                                                                                                      [blockSelf.collectionView reloadData];
+                                                                                                      [weakSelf reloadCollectionViewWithDailyNews:[[DailyNewsDataCenter sharedInstance] latestNews]];
                                                                                                   }
                                                                                               }];
                                                                                           }];
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [leftButton addTarget:self action:@selector(showMoreOptions:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    
+    //Gestures
+    UISwipeGestureRecognizer *swipeLeftGesture = [[UISwipeGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+        if ([MBProgressHUD HUDForView:weakSelf.view]) {
+            return;
+        }
+        [weakSelf switchToNextDay];
+    }];
+    swipeLeftGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeftGesture];
+    
+    UISwipeGestureRecognizer *swipeRightGesture = [[UISwipeGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+        if ([MBProgressHUD HUDForView:weakSelf.view]) {
+            return;
+        }
+        [weakSelf switchToPreDay];
+    }];
+    swipeRightGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRightGesture];
+    
+    self.dailyNews = [[DailyNewsDataCenter sharedInstance] latestNews];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[DailyNewsDataCenter sharedInstance] didReceiveMemoryWarning];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -137,6 +168,82 @@
         [self.popover presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem
                              permittedArrowDirections:UIPopoverArrowDirectionAny
                                              animated:YES];
+    }
+}
+
+- (void)switchToPreDay {
+    NSLog(@"latest:%@ current:%@", [[DailyNewsDataCenter sharedInstance] latestNews], self.dailyNews);
+    if ([[DailyNewsDataCenter sharedInstance] latestNews] != self.dailyNews) {
+        NSDateFormatter *dateFormatter = [DailyNewsDataCenter dateFormatter];
+        
+        NSDate *currentDate = [dateFormatter dateFromString:self.dailyNews.date];
+        NSString *preDateString = [dateFormatter stringFromDate:[currentDate dateByAddingTimeInterval:2 * 24 * 3600]];
+        
+        MODailyNews *preDailyNews = [[DailyNewsDataCenter sharedInstance] newsOnDate:preDateString];
+        if (preDailyNews) {
+            [self reloadCollectionViewWithDailyNews:preDailyNews];
+        }
+        else {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
+            __weak __typeof(&*self) weakSelf = self;
+            [[DailyNewsDataCenter sharedInstance] reloadNewsOnDate:preDateString
+                                                            result:^(BOOL success, MODailyNews *dailyNews) {
+                                                                if (success) {
+                                                                    [weakSelf reloadCollectionViewWithDailyNews:dailyNews];
+                                                                }
+                                                                [[MBProgressHUD HUDForView:self.view] hide:YES];
+                                                            }];
+        }
+        
+        [self startSwipeAnimationWithDirection:NO];
+    }
+}
+
+- (void)switchToNextDay {
+    NSString *nextDateString = self.dailyNews.date;
+    
+    MODailyNews *nextDailyNews = [[DailyNewsDataCenter sharedInstance] newsOnDate:nextDateString];
+    if (nextDailyNews) {
+        [self reloadCollectionViewWithDailyNews:nextDailyNews];
+    }
+    else {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
+        __weak __typeof(&*self) weakSelf = self;
+        [[DailyNewsDataCenter sharedInstance] reloadNewsOnDate:nextDateString
+                                                        result:^(BOOL success, MODailyNews *dailyNews) {
+                                                            if (success) {
+                                                                [weakSelf reloadCollectionViewWithDailyNews:dailyNews];
+                                                            }
+                                                            [[MBProgressHUD HUDForView:self.view] hide:YES];
+                                                        }];
+    }
+    
+    [self startSwipeAnimationWithDirection:YES];
+}
+
+- (void)startSwipeAnimationWithDirection:(BOOL)fromRightToLeft {
+    [self.view.layer removeAllAnimations];
+    
+    CATransition *animation = [CATransition animation];
+    animation.duration = 0.3f;
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.fillMode = kCAFillModeForwards;
+    animation.type = kCATransitionPush;
+    animation.subtype = (fromRightToLeft ? kCATransitionFromRight : kCATransitionFromLeft);
+    [self.view.layer addAnimation:animation forKey:kCATransition];
+}
+
+- (void)reloadCollectionViewWithDailyNews:(MODailyNews *)dailyNews {
+    self.dailyNews = dailyNews;
+    [self.collectionView reloadData];
+    
+    if (dailyNews == [[DailyNewsDataCenter sharedInstance] latestNews]) {
+        self.title = @"知乎日报";
+    }
+    else {
+        NSDateFormatter *dateFormatter = [DailyNewsDataCenter dateFormatter];
+        NSDate *newsDate = [dateFormatter dateFromString:dailyNews.date];
+        self.title = [NSString stringWithFormat:@"知乎日报 @ %@", [dateFormatter stringFromDate:[newsDate dateByAddingTimeInterval:24 * 3600]]];
     }
 }
 
@@ -179,7 +286,7 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[[[DailyNewsDataCenter sharedInstance] latestNews] news] count];
+    return [[self.dailyNews news] count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -193,12 +300,11 @@
         cell = [[NewsCollectionCell alloc] initWithFrame:CGRectMake(0, 0, 384, 384)];
     }
     
-    MONewsItem *news = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
+    MONewsItem *news = [self.dailyNews news][indexPath.row];
     
     NSString *url;
     if ([self.reachability isReachableViaWiFi]) {
-        MONewsItem *newsItem = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
-        url = newsItem.image;
+        url = news.image;
     }
     if ( ! [url length]) {
         url = news.thumbnail;
@@ -238,8 +344,8 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
-    MONewsItem *newsItem = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
-    NewsDetailViewController *webViewController = [[NewsDetailViewController alloc] initWithNewsItem:newsItem];
+    MONewsItem *newsItem = [self.dailyNews news][indexPath.row];
+    NewsDetailViewController *webViewController = [[NewsDetailViewController alloc] initWithNewsItem:newsItem inDailyNews:self.dailyNews];
     webViewController.title = newsItem.title;
     [self.navigationController pushViewController:webViewController animated:YES];
 }
