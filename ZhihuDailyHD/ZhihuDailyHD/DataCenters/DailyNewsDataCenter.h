@@ -13,4 +13,6 @@
 
 - (MODailyNews *)latestNews;
 
+- (void)exposeTheNewsDetail:(MONewsItem *)newsItem result:(void (^)(BOOL success, MONewsItem *newsItem))loadOver;
+
 @end

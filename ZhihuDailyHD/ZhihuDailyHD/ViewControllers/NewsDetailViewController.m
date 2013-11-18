@@ -11,6 +11,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <ShareSDK/ShareSDK.h>
 #import "Constants.h"
+#import "ModelUtils.h"
 
 static char *keySharingRetryed;
 
@@ -18,9 +19,9 @@ static char *keySharingRetryed;
 
 @property (nonatomic, strong) MONewsItem *news;
 
-@property (nonatomic, copy) NSString *url;
-
 @property (nonatomic, weak) id<ISSShareActionSheet> shareActionSheet;
+
+- (void)refreshTheNews;
 
 - (void)shareTheNews;
 
@@ -44,7 +45,6 @@ static char *keySharingRetryed;
 - (id)initWithNewsItem:(MONewsItem *)news {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        self.url = [NSString stringWithFormat:@"http://daily.zhihu.com/api/1.1/news/%d", news.id];
         self.news = news;
     }
     return self;
@@ -68,7 +68,7 @@ static char *keySharingRetryed;
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                   handler:^(id sender) {
                                                                                       if ( ! [blockSelf.webView isLoading]) {
-                                                                                          [blockSelf.webView reload];
+                                                                                          [blockSelf refreshTheNews];
                                                                                       }
                                                                                   }];
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
@@ -96,7 +96,7 @@ static char *keySharingRetryed;
     swipeRightGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeRightGesture];
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+    [self refreshTheNews];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -114,6 +114,24 @@ static char *keySharingRetryed;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)refreshTheNews {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
+    __weak NewsDetailViewController *weakSelf = self;
+    [[DailyNewsDataCenter sharedInstance] exposeTheNewsDetail:self.news
+                                                       result:^(BOOL success, MONewsItem *newsItem) {
+                                                           if (success) {
+                                                               weakSelf.news = newsItem;
+                                                               NSString *newsHtml = [ModelUtils htmlForNewsItem:newsItem];
+                                                               [weakSelf.webView loadHTMLString:newsHtml baseURL:nil];
+                                                           }
+                                                           else {
+                                                               
+                                                           }
+                                                           [MBProgressHUD hideAllHUDsForView:weakSelf.view
+                                                                                    animated:YES];
+                                                       }];
 }
 
 - (void)shareTheNews {
@@ -218,10 +236,9 @@ static char *keySharingRetryed;
     else {
         MONewsItem *preNews = newsArray[currentIndex - 1];
         self.news = preNews;
-        self.url = [preNews url];
         self.title = [preNews title];
         
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+        [self refreshTheNews];
         
         [self startSwipeAnimationWithDirection:NO];
     }
@@ -241,10 +258,9 @@ static char *keySharingRetryed;
     else {
         MONewsItem *nextNews = newsArray[currentIndex + 1];
         self.news = nextNews;
-        self.url = [nextNews url];
         self.title = [nextNews title];
         
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+        [self refreshTheNews];
         
         [self startSwipeAnimationWithDirection:YES];
     }
@@ -273,8 +289,8 @@ static char *keySharingRetryed;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if ([[webView.request.URL absoluteString] isEqualToString:self.url]) {
-        [webView.scrollView setContentOffset:CGPointMake(0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 210 : 150) animated:NO];
+    if ([[webView.request.URL absoluteString] isEqualToString:@"about:blank"]) {
+        [webView.scrollView setContentOffset:CGPointMake(0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 150 : 100) animated:NO];
     }
     [[MBProgressHUD HUDForView:self.view] hide:YES];
 }
