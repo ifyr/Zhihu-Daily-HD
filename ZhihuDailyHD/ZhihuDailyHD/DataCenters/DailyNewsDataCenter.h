@@ -7,10 +7,10 @@
 //
 
 #import "DataCenter.h"
-#import "MOLatestNews.h"
+#import "MODailyNews.h"
 
 @interface DailyNewsDataCenter : DataCenter
 
-- (MOLatestNews *)latestNews;
+- (MODailyNews *)latestNews;
 
 @end

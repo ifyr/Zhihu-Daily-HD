@@ -35,9 +35,8 @@
 		906A71A41816D91E004A2D8C /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906A71A21816D91E004A2D8C /* Icon-Small@2x.png */; };
 		907A252218376D97009B45E4 /* PrintConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A252118376D97009B45E4 /* PrintConnection.framework */; };
 		907DAD91179AA66900CB7618 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907DAD90179AA66900CB7618 /* QuartzCore.framework */; };
-		907DAD95179AA98C00CB7618 /* MOLatestNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD94179AA98C00CB7618 /* MOLatestNews.m */; };
-		907DAD98179AA9D300CB7618 /* MONews.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD97179AA9D300CB7618 /* MONews.m */; };
-		907DAD9B179AA9E100CB7618 /* MONewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD9A179AA9E100CB7618 /* MONewsItem.m */; };
+		907DAD95179AA98C00CB7618 /* MODailyNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD94179AA98C00CB7618 /* MODailyNews.m */; };
+		907DAD98179AA9D300CB7618 /* MONewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD97179AA9D300CB7618 /* MONewsItem.m */; };
 		907DAD9E179AA9F800CB7618 /* MOBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD9D179AA9F800CB7618 /* MOBase.m */; };
 		90892E9918367F400097E77F /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90892E9818367F400097E77F /* placeholder@2x.png */; };
 		90892EE5183685F50097E77F /* EverNoteConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90892E9E183685F50097E77F /* EverNoteConnection.framework */; };
@@ -122,12 +121,10 @@
 		906A71A21816D91E004A2D8C /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		907A252118376D97009B45E4 /* PrintConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PrintConnection.framework; sourceTree = "<group>"; };
 		907DAD90179AA66900CB7618 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		907DAD93179AA98C00CB7618 /* MOLatestNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOLatestNews.h; sourceTree = "<group>"; };
-		907DAD94179AA98C00CB7618 /* MOLatestNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLatestNews.m; sourceTree = "<group>"; };
-		907DAD96179AA9D300CB7618 /* MONews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MONews.h; sourceTree = "<group>"; };
-		907DAD97179AA9D300CB7618 /* MONews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MONews.m; sourceTree = "<group>"; };
-		907DAD99179AA9E100CB7618 /* MONewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MONewsItem.h; sourceTree = "<group>"; };
-		907DAD9A179AA9E100CB7618 /* MONewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MONewsItem.m; sourceTree = "<group>"; };
+		907DAD93179AA98C00CB7618 /* MODailyNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODailyNews.h; sourceTree = "<group>"; };
+		907DAD94179AA98C00CB7618 /* MODailyNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODailyNews.m; sourceTree = "<group>"; };
+		907DAD96179AA9D300CB7618 /* MONewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MONewsItem.h; sourceTree = "<group>"; };
+		907DAD97179AA9D300CB7618 /* MONewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MONewsItem.m; sourceTree = "<group>"; };
 		907DAD9C179AA9F800CB7618 /* MOBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOBase.h; sourceTree = "<group>"; };
 		907DAD9D179AA9F800CB7618 /* MOBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOBase.m; sourceTree = "<group>"; };
 		90892E9818367F400097E77F /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
@@ -383,12 +380,10 @@
 			children = (
 				907DAD9C179AA9F800CB7618 /* MOBase.h */,
 				907DAD9D179AA9F800CB7618 /* MOBase.m */,
-				907DAD93179AA98C00CB7618 /* MOLatestNews.h */,
-				907DAD94179AA98C00CB7618 /* MOLatestNews.m */,
-				907DAD96179AA9D300CB7618 /* MONews.h */,
-				907DAD97179AA9D300CB7618 /* MONews.m */,
-				907DAD99179AA9E100CB7618 /* MONewsItem.h */,
-				907DAD9A179AA9E100CB7618 /* MONewsItem.m */,
+				907DAD93179AA98C00CB7618 /* MODailyNews.h */,
+				907DAD94179AA98C00CB7618 /* MODailyNews.m */,
+				907DAD96179AA9D300CB7618 /* MONewsItem.h */,
+				907DAD97179AA9D300CB7618 /* MONewsItem.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -640,9 +635,8 @@
 				9093DCF0183528FF005983FA /* DailyViewController.m in Sources */,
 				9020E174177EFB0D0080D77C /* AppDelegate.m in Sources */,
 				9068EB92179A9AF800BA143D /* SloganViewController.m in Sources */,
-				907DAD95179AA98C00CB7618 /* MOLatestNews.m in Sources */,
-				907DAD98179AA9D300CB7618 /* MONews.m in Sources */,
-				907DAD9B179AA9E100CB7618 /* MONewsItem.m in Sources */,
+				907DAD95179AA98C00CB7618 /* MODailyNews.m in Sources */,
+				907DAD98179AA9D300CB7618 /* MONewsItem.m in Sources */,
 				907DAD9E179AA9F800CB7618 /* MOBase.m in Sources */,
 				90058995179ABE3500983B6D /* DataCenter.m in Sources */,
 				90058998179ABE4A00983B6D /* DailyNewsDataCenter.m in Sources */,

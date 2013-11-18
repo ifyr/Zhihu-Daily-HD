@@ -10,4 +10,11 @@
 
 @implementation MONewsItem
 
++ (RKObjectMapping *)commonMapping {
+    RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:[self class]];
+    [objectMapping addAttributeMappingsFromArray:@[@"id", @"body", @"image_source", @"title", @"url", @"image", @"share_url", @"thumbnail", @"ga_prefix", @"share_image"]];
+    [objectMapping addAttributeMappingsFromArray:@[@"js", @"css"]];
+    return objectMapping;
+}
+
 @end

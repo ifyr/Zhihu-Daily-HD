@@ -16,6 +16,8 @@ static char *keySharingRetryed;
 
 @interface NewsDetailViewController () <UIWebViewDelegate>
 
+@property (nonatomic, strong) MONewsItem *news;
+
 @property (nonatomic, copy) NSString *url;
 
 @property (nonatomic, weak) id<ISSShareActionSheet> shareActionSheet;
@@ -39,10 +41,11 @@ static char *keySharingRetryed;
     return self;
 }
 
-- (id)initWithUrl:(NSString *)urlString {
+- (id)initWithNewsItem:(MONewsItem *)news {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        self.url = urlString;
+        self.url = [NSString stringWithFormat:@"http://daily.zhihu.com/api/1.1/news/%d", news.id];
+        self.news = news;
     }
     return self;
 }
@@ -114,7 +117,7 @@ static char *keySharingRetryed;
 }
 
 - (void)shareTheNews {
-    MONewsItem *newsItem = [[self.news items] lastObject];
+    MONewsItem *newsItem = self.news;
     NSString *content = newsItem.title;
     if ( ! [content length]) {
         content = self.title;
@@ -213,10 +216,10 @@ static char *keySharingRetryed;
         [self.navigationController popViewControllerAnimated:YES];
     }
     else {
-        MONews *preNews = newsArray[currentIndex - 1];
+        MONewsItem *preNews = newsArray[currentIndex - 1];
         self.news = preNews;
-        self.url = [(MONewsItem *)[[preNews items] lastObject] url];
-        self.title = [(MONewsItem *)[[preNews items] lastObject] title];
+        self.url = [preNews url];
+        self.title = [preNews title];
         
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
         
@@ -236,10 +239,10 @@ static char *keySharingRetryed;
         [hud hide:YES afterDelay:1.0f];
     }
     else {
-        MONews *nextNews = newsArray[currentIndex + 1];
+        MONewsItem *nextNews = newsArray[currentIndex + 1];
         self.news = nextNews;
-        self.url = [(MONewsItem *)[[nextNews items] lastObject] url];
-        self.title = [(MONewsItem *)[[nextNews items] lastObject] title];
+        self.url = [nextNews url];
+        self.title = [nextNews title];
         
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
         

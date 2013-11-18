@@ -193,11 +193,11 @@
         cell = [[NewsCollectionCell alloc] initWithFrame:CGRectMake(0, 0, 384, 384)];
     }
     
-    MONews *news = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
+    MONewsItem *news = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
     
     NSString *url;
     if ([self.reachability isReachableViaWiFi]) {
-        MONewsItem *newsItem = [[[[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row] items] lastObject];
+        MONewsItem *newsItem = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
         url = newsItem.image;
     }
     if ( ! [url length]) {
@@ -238,10 +238,8 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
-    MONews *news = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
-    MONewsItem *newsItem = [[news items] lastObject];
-    NewsDetailViewController *webViewController = [[NewsDetailViewController alloc] initWithUrl:[newsItem url]];
-    webViewController.news = news;
+    MONewsItem *newsItem = [[[DailyNewsDataCenter sharedInstance] latestNews] news][indexPath.row];
+    NewsDetailViewController *webViewController = [[NewsDetailViewController alloc] initWithNewsItem:newsItem];
     webViewController.title = newsItem.title;
     [self.navigationController pushViewController:webViewController animated:YES];
 }

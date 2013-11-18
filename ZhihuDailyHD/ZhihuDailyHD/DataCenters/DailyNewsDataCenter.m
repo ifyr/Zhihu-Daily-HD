@@ -11,7 +11,7 @@
 
 @interface DailyNewsDataCenter ()
 
-@property (nonatomic, strong) MOLatestNews *dailyNews;
+@property (nonatomic, strong) MODailyNews *dailyNews;
 
 @end
 
@@ -24,14 +24,14 @@
     [objectManager setAcceptHeaderWithMIMEType:RKMIMETypeJSON];
     [objectManager.HTTPClient setParameterEncoding:AFJSONParameterEncoding];
     
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[MOLatestNews commonMapping]
+    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[MODailyNews commonMapping]
                                                                                             method:RKRequestMethodAny
                                                                                        pathPattern:nil
                                                                                            keyPath:nil
                                                                                        statusCodes:nil];
     [objectManager addResponseDescriptor:responseDescriptor];
     
-    [objectManager getObjectsAtPath:@"/api/1.1/news/latest"
+    [objectManager getObjectsAtPath:@"/api/1.2/news/latest"
                          parameters:nil
                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                 blockSelf.dailyNews = [mappingResult firstObject];
@@ -46,7 +46,7 @@
                             }];
 }
 
-- (MOLatestNews *)latestNews {
+- (MODailyNews *)latestNews {
     return self.dailyNews;
 }
 

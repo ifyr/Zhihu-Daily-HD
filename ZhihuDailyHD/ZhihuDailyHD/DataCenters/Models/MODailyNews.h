@@ -1,5 +1,5 @@
 //
-//  MOLatestNews.h
+//  MODailyNews.h
 //  ZhihuDailyHD
 //
 //  Created by Jiang Chuncheng on 7/20/13.
@@ -7,9 +7,9 @@
 //
 
 #import "MOBase.h"
-#import "MONews.h"
+#import "MONewsItem.h"
 
-@interface MOLatestNews : MOBase
+@interface MODailyNews : MOBase
 
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, strong) NSArray *news;
