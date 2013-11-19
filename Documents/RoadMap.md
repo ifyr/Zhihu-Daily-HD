@@ -40,12 +40,12 @@ The road map for deployment on App Store.
 	</tr>
 	<tr>
 		<td>1.2.0</td>
-		<td>2013-12-01</td>
-		<td>Doing</td>
+		<td>2013-11-23</td>
+		<td>Done</td>
 		<td>
 			<ul>
-				<li>[TODO] Swipe gestures</li>
-				<li>[TODO] Latest days' articles</li>
+				<li>[DONE] Swipe gestures</li>
+				<li>[DONE] Latest days' articles</li>
 			</ul>
 		</td>
 	</tr>
