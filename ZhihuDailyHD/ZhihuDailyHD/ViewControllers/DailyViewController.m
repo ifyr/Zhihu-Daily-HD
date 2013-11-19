@@ -172,7 +172,6 @@
 }
 
 - (void)switchToPreDay {
-    NSLog(@"latest:%@ current:%@", [[DailyNewsDataCenter sharedInstance] latestNews], self.dailyNews);
     if ([[DailyNewsDataCenter sharedInstance] latestNews] != self.dailyNews) {
         NSDateFormatter *dateFormatter = [DailyNewsDataCenter dateFormatter];
         

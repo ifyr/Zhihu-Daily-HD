@@ -73,9 +73,18 @@
     [objectManager getObjectsAtPath:@"/api/1.2/news/latest"
                          parameters:nil
                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                NSString *currentDateString = [[DailyNewsDataCenter dateFormatter] stringFromDate:[NSDate date]];
-                                weakSelf.dailyNews = [mappingResult firstObject];
-                                weakSelf.beforeNews[currentDateString] = weakSelf.dailyNews;
+                                MODailyNews *lastestDailyNews = [mappingResult firstObject];
+                                
+                                NSDateFormatter *dateFormatter = [DailyNewsDataCenter dateFormatter];
+                                NSDate *latestDate = [dateFormatter dateFromString:lastestDailyNews.date];
+                                NSString *currentDateString = [dateFormatter stringFromDate:[latestDate dateByAddingTimeInterval:24 * 3600]];
+                                if ( ! currentDateString) {
+                                    currentDateString = [dateFormatter stringFromDate:[NSDate date]];
+                                }
+                                weakSelf.beforeNews[currentDateString] = lastestDailyNews;
+                                
+                                weakSelf.dailyNews = lastestDailyNews;
+                                
                                 if (loadOver) {
                                     loadOver(YES);
                                 }
