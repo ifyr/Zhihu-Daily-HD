@@ -20,6 +20,8 @@
 #import "OptionsViewController.h"
 #import "AboutViewController.h"
 
+typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
+
 @interface DailyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIPopoverControllerDelegate, OptionsDelegate> {
     CGFloat cellWidthPortrait;
     CGFloat cellWidthLandscape;
@@ -41,6 +43,8 @@
 - (void)startSwipeAnimationWithDirection:(BOOL)fromRightToLeft;
 
 - (void)reloadCollectionViewWithDailyNews:(MODailyNews *)dailyNews;
+
+- (void)preloadDetailForDailyNews:(MODailyNews *)dailyNewsToPreload;
 
 @end
 
@@ -123,6 +127,7 @@
     [self.view addGestureRecognizer:swipeRightGesture];
     
     self.dailyNews = [[DailyNewsDataCenter sharedInstance] latestNews];
+    [self preloadDetailForDailyNews:self.dailyNews];
 }
 
 - (void)didReceiveMemoryWarning
@@ -235,6 +240,11 @@
 - (void)reloadCollectionViewWithDailyNews:(MODailyNews *)dailyNews {
     self.dailyNews = dailyNews;
     [self.collectionView reloadData];
+    if ([dailyNews.news count]) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+                                    atScrollPosition:UICollectionViewScrollPositionTop
+                                            animated:NO];
+    }
     
     if (dailyNews == [[DailyNewsDataCenter sharedInstance] latestNews]) {
         self.title = @"知乎日报";
@@ -244,6 +254,28 @@
         NSDate *newsDate = [dateFormatter dateFromString:dailyNews.date];
         self.title = [NSString stringWithFormat:@"知乎日报 @ %@", [dateFormatter stringFromDate:[newsDate dateByAddingTimeInterval:24 * 3600]]];
     }
+    
+    [self preloadDetailForDailyNews:dailyNews];
+}
+
+- (void)preloadDetailForDailyNews:(MODailyNews *)dailyNewsToPreload {
+    static ExposeDailyNewsBlock exposeDailyNewsBlock;
+    exposeDailyNewsBlock = ^(MODailyNews *dailyNews, NSInteger index) {
+        if ((index < 0) || (index >= [dailyNews.news count])) {
+            return;
+        }
+        [[DailyNewsDataCenter sharedInstance] exposeTheNewsDetail:dailyNews.news[index]
+                                                           result:^(BOOL success, MONewsItem *newsItem) {
+                                                               if (success && exposeDailyNewsBlock) {
+                                                                   exposeDailyNewsBlock(dailyNews, [dailyNews.news indexOfObject:newsItem] + 1);
+                                                               }
+                                                               else {
+                                                                   return;
+                                                               }
+                                                           }];
+    };
+    
+    exposeDailyNewsBlock(dailyNewsToPreload, 0);
 }
 
 #pragma mark - UIPopoverControllerDelegate

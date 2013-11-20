@@ -122,7 +122,8 @@ static char *keySharingRetryed;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
     __weak NewsDetailViewController *weakSelf = self;
     [[DailyNewsDataCenter sharedInstance] exposeTheNewsDetail:self.news
-                                                       result:^(BOOL success, MONewsItem *newsItem) {
+                                                   usingCache:YES
+                                                       result:^(BOOL success, MONewsItem *newsItem, BOOL cached) {
                                                            if (success) {
                                                                weakSelf.news = newsItem;
                                                                NSString *newsHtml = [ModelUtils htmlForNewsItem:newsItem];

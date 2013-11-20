@@ -19,6 +19,7 @@
 - (void)reloadNewsOnDate:(NSString *)dateString result:(void (^)(BOOL success, MODailyNews *dailyNews))loadOver;
 
 - (void)exposeTheNewsDetail:(MONewsItem *)newsItem result:(void (^)(BOOL success, MONewsItem *newsItem))loadOver;
+- (void)exposeTheNewsDetail:(MONewsItem *)newsItem usingCache:(BOOL)cache result:(void (^)(BOOL success, MONewsItem *newsItem, BOOL cached))loadOver;
 
 + (NSDateFormatter *)dateFormatter;
 

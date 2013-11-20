@@ -140,6 +140,20 @@
 }
 
 - (void)exposeTheNewsDetail:(MONewsItem *)newsItem result:(void (^)(BOOL success, MONewsItem *newsItem))loadOver {
+    [self exposeTheNewsDetail:newsItem usingCache:YES result:^(BOOL success, MONewsItem *newsItem, BOOL cached) {
+        if (loadOver) {
+            loadOver(success, newsItem);
+        }
+    }];
+}
+
+- (void)exposeTheNewsDetail:(MONewsItem *)newsItem usingCache:(BOOL)cache result:(void (^)(BOOL success, MONewsItem *newsItem, BOOL cached))loadOver {
+    if (cache && [newsItem.body length]) {
+        if (loadOver) {
+            loadOver(YES, newsItem, YES);
+        }
+        return;
+    }
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://news.at.zhihu.com/"]];
     [objectManager setAcceptHeaderWithMIMEType:RKMIMETypeJSON];
     [objectManager.HTTPClient setParameterEncoding:AFJSONParameterEncoding];
@@ -154,22 +168,24 @@
     [objectManager getObjectsAtPath:[@"/api/1.2/news/" stringByAppendingFormat:@"%d", newsItem.id]
                          parameters:nil
                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                if (loadOver) {
-                                    MONewsItem *exposedNewsItem = [mappingResult firstObject];
-                                    if ([exposedNewsItem isKindOfClass:[MONewsItem class]]) {
-                                        newsItem.body = exposedNewsItem.body;
-                                        newsItem.css = exposedNewsItem.css;
-                                        newsItem.js = exposedNewsItem.js;
-                                        loadOver(YES, newsItem);
+                                MONewsItem *exposedNewsItem = [mappingResult firstObject];
+                                if ([exposedNewsItem isKindOfClass:[MONewsItem class]]) {
+                                    newsItem.body = exposedNewsItem.body;
+                                    newsItem.css = exposedNewsItem.css;
+                                    newsItem.js = exposedNewsItem.js;
+                                    if (loadOver) {
+                                        loadOver(YES, newsItem, NO);
                                     }
-                                    else {
-                                        loadOver(YES, nil);
+                                }
+                                else {
+                                    if (loadOver) {
+                                        loadOver(YES, nil, NO);
                                     }
                                 }
                             }
                             failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                 if (loadOver) {
-                                    loadOver(NO, nil);
+                                    loadOver(NO, nil, NO);
                                 }
                             }];
 }
