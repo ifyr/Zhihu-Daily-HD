@@ -177,7 +177,7 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
 }
 
 - (void)switchToPreDay {
-    if ([[DailyNewsDataCenter sharedInstance] latestNews] != self.dailyNews) {
+    if ( ! [[[DailyNewsDataCenter sharedInstance] latestNews].date isEqualToString:self.dailyNews.date]) {
         NSDateFormatter *dateFormatter = [DailyNewsDataCenter dateFormatter];
         
         NSDate *currentDate = [dateFormatter dateFromString:self.dailyNews.date];
@@ -246,7 +246,7 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
                                             animated:NO];
     }
     
-    if (dailyNews == [[DailyNewsDataCenter sharedInstance] latestNews]) {
+    if ([dailyNews.date isEqualToString:[[DailyNewsDataCenter sharedInstance] latestNews].date]) {
         self.title = @"知乎日报";
     }
     else {

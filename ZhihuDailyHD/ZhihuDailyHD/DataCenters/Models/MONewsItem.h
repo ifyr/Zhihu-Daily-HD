@@ -8,6 +8,8 @@
 
 #import "MOBase.h"
 
+#import "CDNewsItem.h"
+
 @interface MONewsItem : MOBase
 
 @property (nonatomic, assign) NSInteger id;
@@ -23,5 +25,8 @@
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *thumbnail;
 @property (nonatomic, strong) NSArray *css;
+
+- (CDNewsItem *)saveToCDNewsItem:(CDNewsItem *)cdNewsItem;
+- (void)updateFromCDNewsItem:(CDNewsItem *)cdNewsItem;
 
 @end

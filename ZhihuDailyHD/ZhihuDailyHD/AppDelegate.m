@@ -7,11 +7,11 @@
 //
 
 #import <Appirater/Appirater.h>
-#import <GCOLaunchImageTransition/GCOLaunchImageTransition.h>
 #import <SDWebImage/SDImageCache.h>
 #import <ShareSDK/ShareSDK.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
+#import <MagicalRecord/CoreData+MagicalRecord.h>
 
 #import "WXApi.h"
 
@@ -26,6 +26,7 @@
 - (void)configUmeng;
 - (void)configAppRating;
 - (void)configShareSDK;
+- (void)configCoreDate;
 
 @end
 
@@ -43,7 +44,9 @@
     
     [self configShareSDK];
     
-    [[SDImageCache sharedImageCache] setMaxCacheSize:32 * 1024 * 1024]; //32MB
+    [self configCoreDate];
+    
+    [[SDImageCache sharedImageCache] setMaxCacheSize:64 * 1024 * 1024]; //32MB
     
     self.window.rootViewController = [[SloganViewController alloc] init];
     
@@ -68,7 +71,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-//    [GCOLaunchImageTransition transitionWithDuration:0.5f style:GCOLaunchImageTransitionAnimationStyleFade];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -142,6 +144,14 @@
     [ShareSDK connectEvernoteWithType:SSEverNoteTypeCN
                           consumerKey:YinXiangAppKey
                        consumerSecret:YinXiangAppSecret];
+}
+
+- (void)configCoreDate {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectoryPath = [paths objectAtIndex:0];
+    NSString *coreDateFilePath = [documentDirectoryPath stringByAppendingPathComponent:@"news.sqlite"];
+    
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:[NSURL fileURLWithPath:coreDateFilePath]];
 }
 
 @end

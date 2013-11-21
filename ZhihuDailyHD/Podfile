@@ -8,9 +8,7 @@ pod 'BlocksKit', :head
 
 pod 'SDWebImage', :head
 
-pod 'BDDynamicGridViewController', :head
-
-pod 'GCOLaunchImageTransition', :head
+pod 'MagicalRecord', :head
 
 pod 'Reachability', :head
 

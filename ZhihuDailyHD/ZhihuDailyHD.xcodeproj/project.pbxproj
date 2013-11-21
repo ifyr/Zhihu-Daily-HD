@@ -80,6 +80,8 @@
 		90C1DC1A183E6D46008F8C06 /* EmojiMapSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC11183E6D46008F8C06 /* EmojiMapSymbols.m */; };
 		90C1DC1B183E6D46008F8C06 /* EmojiPictographs.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC13183E6D46008F8C06 /* EmojiPictographs.m */; };
 		90C1DC1C183E6D46008F8C06 /* EmojiTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC15183E6D46008F8C06 /* EmojiTransport.m */; };
+		90C1DC20183E7364008F8C06 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC1E183E7364008F8C06 /* Model.xcdatamodeld */; };
+		90C1DC29183E8698008F8C06 /* CDNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC28183E8698008F8C06 /* CDNewsItem.m */; };
 		90DD6DAA183295EE0029EC33 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD6DA7183295EE0029EC33 /* libMobClickLibrary.a */; };
 		90DD6DB0183295F90029EC33 /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD6DAD183295F90029EC33 /* libUMFeedback.a */; };
 		90DD6DB1183295F90029EC33 /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90DD6DAE183295F90029EC33 /* umFeedback.bundle */; };
@@ -190,6 +192,9 @@
 		90C1DC13183E6D46008F8C06 /* EmojiPictographs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiPictographs.m; sourceTree = "<group>"; };
 		90C1DC14183E6D46008F8C06 /* EmojiTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiTransport.h; sourceTree = "<group>"; };
 		90C1DC15183E6D46008F8C06 /* EmojiTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiTransport.m; sourceTree = "<group>"; };
+		90C1DC1F183E7364008F8C06 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		90C1DC27183E8698008F8C06 /* CDNewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDNewsItem.h; sourceTree = "<group>"; };
+		90C1DC28183E8698008F8C06 /* CDNewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDNewsItem.m; sourceTree = "<group>"; };
 		90DD6DA7183295EE0029EC33 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		90DD6DA9183295EE0029EC33 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		90DD6DAD183295F90029EC33 /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
@@ -413,6 +418,9 @@
 				907DAD94179AA98C00CB7618 /* MODailyNews.m */,
 				907DAD96179AA9D300CB7618 /* MONewsItem.h */,
 				907DAD97179AA9D300CB7618 /* MONewsItem.m */,
+				90C1DC1E183E7364008F8C06 /* Model.xcdatamodeld */,
+				90C1DC27183E8698008F8C06 /* CDNewsItem.h */,
+				90C1DC28183E8698008F8C06 /* CDNewsItem.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -691,9 +699,11 @@
 				9062D0C1183A703900326E06 /* ModelUtils.m in Sources */,
 				90C1DC1C183E6D46008F8C06 /* EmojiTransport.m in Sources */,
 				90C1DC1B183E6D46008F8C06 /* EmojiPictographs.m in Sources */,
+				90C1DC29183E8698008F8C06 /* CDNewsItem.m in Sources */,
 				9005899B179AE1C400983B6D /* NewsDetailViewController.m in Sources */,
 				90A728BE17C3BB7D00B19BA0 /* OptionsViewController.m in Sources */,
 				90C1DC18183E6D46008F8C06 /* Emoji.m in Sources */,
+				90C1DC20183E7364008F8C06 /* Model.xcdatamodeld in Sources */,
 				90286ECE17C4FD1D00D45318 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -869,6 +879,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		90C1DC1E183E7364008F8C06 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				90C1DC1F183E7364008F8C06 /* Model.xcdatamodel */,
+			);
+			currentVersion = 90C1DC1F183E7364008F8C06 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9020E158177EFB0D0080D77C /* Project object */;
 }

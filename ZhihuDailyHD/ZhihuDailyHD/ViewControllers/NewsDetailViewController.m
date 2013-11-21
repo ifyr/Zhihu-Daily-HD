@@ -208,7 +208,6 @@ static char *keySharingRetryed;
                                     [hud hide:YES afterDelay:1.0f];
                                 }
                                 else if (state == SSResponseStateFail) {
-                                    NSLog(@"分享失败,错误码:%d,错误描述:%@", [error errorCode], [error errorDescription]);
                                     //Fix for sina weibo image url sharing
                                     if (type == ShareTypeSinaWeibo) {
                                         BOOL retryed = [[(NSObject *)publishContent associatedValueForKey:keySharingRetryed] boolValue];

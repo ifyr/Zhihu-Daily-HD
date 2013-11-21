@@ -56,6 +56,39 @@
     return [self newsOnDate:dateString];
 }
 
+- (void)loadCache {
+    CDNewsItem *latestItem = [CDNewsItem MR_findFirstOrderedByAttribute:@"date" ascending:NO];
+    if ( ! latestItem) {
+        return;
+    }
+    
+    NSArray *cachedNews = [CDNewsItem MR_findByAttribute:@"date"
+                                               withValue:latestItem.date
+                                              andOrderBy:@"ga_prefix"
+                                               ascending:YES];
+    
+    MODailyNews *lastestDailyNews = [[MODailyNews alloc] init];
+    lastestDailyNews.date = latestItem.date;
+    
+    NSMutableArray *news = [NSMutableArray arrayWithCapacity:[cachedNews count]];
+    for (CDNewsItem *cdNewsItem in cachedNews) {
+        MONewsItem *newsItem = [[MONewsItem alloc] init];
+        [newsItem updateFromCDNewsItem:cdNewsItem];
+        [news addObject:newsItem];
+    }
+    lastestDailyNews.news = news;
+    
+    NSDateFormatter *dateFormatter = [DailyNewsDataCenter dateFormatter];
+    NSDate *latestDate = [dateFormatter dateFromString:lastestDailyNews.date];
+    NSString *currentDateString = [dateFormatter stringFromDate:[latestDate dateByAddingTimeInterval:24 * 3600]];
+    if ( ! currentDateString) {
+        currentDateString = [dateFormatter stringFromDate:[NSDate date]];
+    }
+    self.beforeNews[currentDateString] = lastestDailyNews;
+    
+    self.dailyNews = lastestDailyNews;
+}
+
 - (void)reloadData:(void (^)(BOOL success))loadOver {
     __weak __typeof(&*self) weakSelf = self;
     
@@ -85,6 +118,18 @@
                                 
                                 weakSelf.dailyNews = lastestDailyNews;
                                 
+                                for (MONewsItem *newsItem in lastestDailyNews.news) {
+                                    CDNewsItem *cdNewsItem = [CDNewsItem MR_findFirstByAttribute:@"id" withValue:@(newsItem.id)];
+                                    if ( ! cdNewsItem) {
+                                        cdNewsItem = [CDNewsItem MR_createEntity];
+                                    }
+                                    cdNewsItem.date = lastestDailyNews.date;
+                                    [newsItem saveToCDNewsItem:cdNewsItem];
+                                }
+                                [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                                    
+                                }];
+                                
                                 if (loadOver) {
                                     loadOver(YES);
                                 }
@@ -97,15 +142,48 @@
 }
 
 - (void)reloadNewsOnDate:(NSString *)dateString result:(void (^)(BOOL success, MODailyNews *dailyNews))loadOver {
-    __weak __typeof(&*self) weakSelf = self;
-    
+    [self reloadNewsOnDate:dateString
+                usingCache:YES
+                    result:^(BOOL success, MODailyNews *dailyNews, BOOL cached) {
+                        loadOver(success, dailyNews);
+                    }];
+}
+
+- (void)reloadNewsOnDate:(NSString *)dateString usingCache:(BOOL)cache result:(void (^)(BOOL success, MODailyNews *dailyNews, BOOL cached))loadOver {
     NSDateFormatter *dateFormatter = [DailyNewsDataCenter dateFormatter];
-    if ( ! [dateFormatter dateFromString:dateString]) {
+    NSDate *theDate = [dateFormatter dateFromString:dateString];
+    if ( ! theDate) {
         if (loadOver) {
-            loadOver(NO, nil);
+            loadOver(NO, nil, NO);
         }
         return;
     }
+    
+    NSString *savedDateString = [dateFormatter stringFromDate:[theDate dateByAddingTimeInterval:-1 * 24 * 3600]];
+    
+    if (cache) {
+        NSArray *cachedNews = [CDNewsItem MR_findByAttribute:@"date"
+                                                   withValue:savedDateString
+                                                  andOrderBy:@"ga_prefix"
+                                                   ascending:YES];
+        if ([cachedNews count]) {
+            MODailyNews *cachedDailyNews = [[MODailyNews alloc] init];
+            cachedDailyNews.date = savedDateString;
+            
+            NSMutableArray *news = [NSMutableArray arrayWithCapacity:[cachedNews count]];
+            for (CDNewsItem *cdNewsItem in cachedNews) {
+                MONewsItem *newsItem = [[MONewsItem alloc] init];
+                [newsItem updateFromCDNewsItem:cdNewsItem];
+                [news addObject:newsItem];
+            }
+            cachedDailyNews.news = news;
+            
+            loadOver(YES, cachedDailyNews, YES);
+            return;
+        }
+    }
+    
+    __weak __typeof(&*self) weakSelf = self;
     
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://news.at.zhihu.com/"]];
     [objectManager setAcceptHeaderWithMIMEType:RKMIMETypeJSON];
@@ -126,15 +204,27 @@
                                 
                                 if (success) {
                                     weakSelf.beforeNews[dateString] = dailyNews;
+                                    
+                                    for (MONewsItem *newsItem in dailyNews.news) {
+                                        CDNewsItem *cdNewsItem = [CDNewsItem MR_findFirstByAttribute:@"id" withValue:@(newsItem.id)];
+                                        if ( ! cdNewsItem) {
+                                            cdNewsItem = [CDNewsItem MR_createEntity];
+                                        }
+                                        cdNewsItem.date = dailyNews.date;
+                                        [newsItem saveToCDNewsItem:cdNewsItem];
+                                    }
+                                    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                                        
+                                    }];
                                 }
                                 
                                 if (loadOver) {
-                                    loadOver(success, success ? dailyNews : nil);
+                                    loadOver(success, success ? dailyNews : nil, NO);
                                 }
                             }
                             failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                 if (loadOver) {
-                                    loadOver(NO, nil);
+                                    loadOver(NO, nil, NO);
                                 }
                             }];
 }
@@ -148,11 +238,19 @@
 }
 
 - (void)exposeTheNewsDetail:(MONewsItem *)newsItem usingCache:(BOOL)cache result:(void (^)(BOOL success, MONewsItem *newsItem, BOOL cached))loadOver {
-    if (cache && [newsItem.body length]) {
-        if (loadOver) {
-            loadOver(YES, newsItem, YES);
+    if (cache) {
+        NSString *body = newsItem.body;
+        if ( ! [body length]) {
+            CDNewsItem *cdNewsItem = [CDNewsItem MR_findFirstByAttribute:@"id" withValue:@(newsItem.id)];
+            [newsItem updateFromCDNewsItem:cdNewsItem];
+            body = newsItem.body;
         }
-        return;
+        if ([body length]) {
+            if (loadOver) {
+                loadOver(YES, newsItem, YES);
+            }
+            return;
+        }
     }
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://news.at.zhihu.com/"]];
     [objectManager setAcceptHeaderWithMIMEType:RKMIMETypeJSON];
@@ -173,6 +271,12 @@
                                     newsItem.body = exposedNewsItem.body;
                                     newsItem.css = exposedNewsItem.css;
                                     newsItem.js = exposedNewsItem.js;
+                                    
+                                    NSManagedObjectContext *managedObjectContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                                    CDNewsItem *cdNewsItem = [CDNewsItem MR_findFirstByAttribute:@"id" withValue:@(newsItem.id) inContext:managedObjectContext];
+                                    [newsItem saveToCDNewsItem:cdNewsItem];
+                                    [managedObjectContext MR_saveToPersistentStoreAndWait];
+                                    
                                     if (loadOver) {
                                         loadOver(YES, newsItem, NO);
                                     }
