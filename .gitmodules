@@ -7,3 +7,6 @@
 [submodule "ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK"]
 	path = ZhihuDailyHD/ZhihuDailyHD/External/ShareSDK
 	url = https://github.com/jcccn/ShareSDK-iOS.git
+[submodule "ZhihuDailyHD/ZhihuDailyHD/External/Emoji"]
+	path = ZhihuDailyHD/ZhihuDailyHD/External/Emoji
+	url = https://github.com/limejelly/Emoji.git

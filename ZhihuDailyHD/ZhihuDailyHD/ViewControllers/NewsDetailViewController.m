@@ -12,6 +12,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import "Constants.h"
 #import "ModelUtils.h"
+#import "Emoji.h"
 
 static char *keySharingRetryed;
 
@@ -19,6 +20,8 @@ static char *keySharingRetryed;
 
 @property (nonatomic, strong) MODailyNews *dailyNews;
 @property (nonatomic, strong) MONewsItem *news;
+
+@property (nonatomic, strong) NSArray *emojiArray;
 
 @property (nonatomic, weak) id<ISSShareActionSheet> shareActionSheet;
 
@@ -55,6 +58,8 @@ static char *keySharingRetryed;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.emojiArray = [Emoji allEmoji];
 	
     self.hidesBottomBarWhenPushed = NO;
     
@@ -239,7 +244,7 @@ static char *keySharingRetryed;
     else {
         MONewsItem *preNews = newsArray[currentIndex - 1];
         self.news = preNews;
-        self.title = [preNews title];
+        self.title = [NSString stringWithFormat:@"[%d/%d] %@ %@", currentIndex, [newsArray count], self.emojiArray[arc4random() % [self.emojiArray count]], [preNews title]];
         
         [self refreshTheNews];
         
@@ -261,7 +266,7 @@ static char *keySharingRetryed;
     else {
         MONewsItem *nextNews = newsArray[currentIndex + 1];
         self.news = nextNews;
-        self.title = [nextNews title];
+        self.title = [NSString stringWithFormat:@"%d/%d %@ %@", currentIndex + 2, [newsArray count], self.emojiArray[arc4random() % [self.emojiArray count]], [nextNews title]];
         
         [self refreshTheNews];
         

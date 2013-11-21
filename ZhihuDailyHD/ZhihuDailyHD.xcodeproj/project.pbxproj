@@ -75,8 +75,12 @@
 		9093DCF0183528FF005983FA /* DailyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9093DCEF183528FF005983FA /* DailyViewController.m */; };
 		90A728B817C3B38C00B19BA0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A728B717C3B38C00B19BA0 /* libz.dylib */; };
 		90A728BE17C3BB7D00B19BA0 /* OptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A728BD17C3BB7D00B19BA0 /* OptionsViewController.m */; };
+		90C1DC18183E6D46008F8C06 /* Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC0D183E6D46008F8C06 /* Emoji.m */; };
+		90C1DC19183E6D46008F8C06 /* EmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC0F183E6D46008F8C06 /* EmojiEmoticons.m */; };
+		90C1DC1A183E6D46008F8C06 /* EmojiMapSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC11183E6D46008F8C06 /* EmojiMapSymbols.m */; };
+		90C1DC1B183E6D46008F8C06 /* EmojiPictographs.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC13183E6D46008F8C06 /* EmojiPictographs.m */; };
+		90C1DC1C183E6D46008F8C06 /* EmojiTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DC15183E6D46008F8C06 /* EmojiTransport.m */; };
 		90DD6DAA183295EE0029EC33 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD6DA7183295EE0029EC33 /* libMobClickLibrary.a */; };
-		90DD6DAB183295EE0029EC33 /* libMobClickLibrary_armv6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD6DA8183295EE0029EC33 /* libMobClickLibrary_armv6.a */; };
 		90DD6DB0183295F90029EC33 /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD6DAD183295F90029EC33 /* libUMFeedback.a */; };
 		90DD6DB1183295F90029EC33 /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90DD6DAE183295F90029EC33 /* umFeedback.bundle */; };
 		C9FFB09EA0834D238DADF154 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53627110FA544CFE969FAEA1 /* libPods.a */; };
@@ -176,8 +180,17 @@
 		90A728B717C3B38C00B19BA0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		90A728BC17C3BB7C00B19BA0 /* OptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsViewController.h; sourceTree = "<group>"; };
 		90A728BD17C3BB7D00B19BA0 /* OptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsViewController.m; sourceTree = "<group>"; };
+		90C1DC0C183E6D46008F8C06 /* Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emoji.h; sourceTree = "<group>"; };
+		90C1DC0D183E6D46008F8C06 /* Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emoji.m; sourceTree = "<group>"; };
+		90C1DC0E183E6D46008F8C06 /* EmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiEmoticons.h; sourceTree = "<group>"; };
+		90C1DC0F183E6D46008F8C06 /* EmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiEmoticons.m; sourceTree = "<group>"; };
+		90C1DC10183E6D46008F8C06 /* EmojiMapSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiMapSymbols.h; sourceTree = "<group>"; };
+		90C1DC11183E6D46008F8C06 /* EmojiMapSymbols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiMapSymbols.m; sourceTree = "<group>"; };
+		90C1DC12183E6D46008F8C06 /* EmojiPictographs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiPictographs.h; sourceTree = "<group>"; };
+		90C1DC13183E6D46008F8C06 /* EmojiPictographs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiPictographs.m; sourceTree = "<group>"; };
+		90C1DC14183E6D46008F8C06 /* EmojiTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiTransport.h; sourceTree = "<group>"; };
+		90C1DC15183E6D46008F8C06 /* EmojiTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiTransport.m; sourceTree = "<group>"; };
 		90DD6DA7183295EE0029EC33 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
-		90DD6DA8183295EE0029EC33 /* libMobClickLibrary_armv6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary_armv6.a; sourceTree = "<group>"; };
 		90DD6DA9183295EE0029EC33 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		90DD6DAD183295F90029EC33 /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
 		90DD6DAE183295F90029EC33 /* umFeedback.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = umFeedback.bundle; sourceTree = "<group>"; };
@@ -214,7 +227,6 @@
 				90DD6DB0183295F90029EC33 /* libUMFeedback.a in Frameworks */,
 				90892EF5183685F50097E77F /* SMSConnection.framework in Frameworks */,
 				9020E166177EFB0D0080D77C /* Foundation.framework in Frameworks */,
-				90DD6DAB183295EE0029EC33 /* libMobClickLibrary_armv6.a in Frameworks */,
 				90892EED183685F50097E77F /* MailConnection.framework in Frameworks */,
 				90892EE5183685F50097E77F /* EverNoteConnection.framework in Frameworks */,
 				9020E168177EFB0D0080D77C /* CoreGraphics.framework in Frameworks */,
@@ -330,6 +342,7 @@
 		9020E1D1177F09750080D77C /* External */ = {
 			isa = PBXGroup;
 			children = (
+				90C1DC0A183E6D46008F8C06 /* Emoji */,
 				90892E9A183685F50097E77F /* ShareSDK */,
 				90DD6DA6183295EE0029EC33 /* UMAnalytics */,
 				90DD6DAC183295F90029EC33 /* UMFeedback */,
@@ -506,11 +519,27 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		90C1DC0A183E6D46008F8C06 /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				90C1DC0C183E6D46008F8C06 /* Emoji.h */,
+				90C1DC0D183E6D46008F8C06 /* Emoji.m */,
+				90C1DC0E183E6D46008F8C06 /* EmojiEmoticons.h */,
+				90C1DC0F183E6D46008F8C06 /* EmojiEmoticons.m */,
+				90C1DC10183E6D46008F8C06 /* EmojiMapSymbols.h */,
+				90C1DC11183E6D46008F8C06 /* EmojiMapSymbols.m */,
+				90C1DC12183E6D46008F8C06 /* EmojiPictographs.h */,
+				90C1DC13183E6D46008F8C06 /* EmojiPictographs.m */,
+				90C1DC14183E6D46008F8C06 /* EmojiTransport.h */,
+				90C1DC15183E6D46008F8C06 /* EmojiTransport.m */,
+			);
+			path = Emoji;
+			sourceTree = "<group>";
+		};
 		90DD6DA6183295EE0029EC33 /* UMAnalytics */ = {
 			isa = PBXGroup;
 			children = (
 				90DD6DA7183295EE0029EC33 /* libMobClickLibrary.a */,
-				90DD6DA8183295EE0029EC33 /* libMobClickLibrary_armv6.a */,
 				90DD6DA9183295EE0029EC33 /* MobClick.h */,
 			);
 			name = UMAnalytics;
@@ -655,11 +684,16 @@
 				907DAD95179AA98C00CB7618 /* MODailyNews.m in Sources */,
 				907DAD98179AA9D300CB7618 /* MONewsItem.m in Sources */,
 				907DAD9E179AA9F800CB7618 /* MOBase.m in Sources */,
+				90C1DC1A183E6D46008F8C06 /* EmojiMapSymbols.m in Sources */,
 				90058995179ABE3500983B6D /* DataCenter.m in Sources */,
 				90058998179ABE4A00983B6D /* DailyNewsDataCenter.m in Sources */,
+				90C1DC19183E6D46008F8C06 /* EmojiEmoticons.m in Sources */,
 				9062D0C1183A703900326E06 /* ModelUtils.m in Sources */,
+				90C1DC1C183E6D46008F8C06 /* EmojiTransport.m in Sources */,
+				90C1DC1B183E6D46008F8C06 /* EmojiPictographs.m in Sources */,
 				9005899B179AE1C400983B6D /* NewsDetailViewController.m in Sources */,
 				90A728BE17C3BB7D00B19BA0 /* OptionsViewController.m in Sources */,
+				90C1DC18183E6D46008F8C06 /* Emoji.m in Sources */,
 				90286ECE17C4FD1D00D45318 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -752,7 +786,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/ZhihuDailyHD/External/URLManager/Test\\\"",
 					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Connection\"",
 					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Core\"",
 					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/GooglePlusSDK\"",
@@ -788,7 +821,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/ZhihuDailyHD/External/URLManager/Test\\\"",
 					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Connection\"",
 					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Core\"",
 					"\"$(SRCROOT)/ZhihuDailyHD/External/ShareSDK/ShareSDK/Extend/GooglePlusSDK\"",
