@@ -109,7 +109,7 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
     
     //Gestures
     UISwipeGestureRecognizer *swipeLeftGesture = [[UISwipeGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
-        if ([MBProgressHUD HUDForView:weakSelf.view]) {
+        if ([MBProgressHUD HUDForView:weakSelf.view].alpha > 0.01f) {
             return;
         }
         [weakSelf switchToNextDay];
@@ -118,7 +118,7 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
     [self.view addGestureRecognizer:swipeLeftGesture];
     
     UISwipeGestureRecognizer *swipeRightGesture = [[UISwipeGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
-        if ([MBProgressHUD HUDForView:weakSelf.view]) {
+        if ([MBProgressHUD HUDForView:weakSelf.view].alpha > 0.01f) {
             return;
         }
         [weakSelf switchToPreDay];
@@ -297,13 +297,27 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
             [UMFeedback showFeedback:self withAppkey:UmengAppKey];
         }
             break;
-            
+        
         case 1: {
-            [Appirater rateApp];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.removeFromSuperViewOnHide = YES;
+            hud.labelText = @"正在清理";
+            [[SDImageCache sharedImageCache] clearDisk];
+            [CDNewsItem MR_truncateAll];
+            [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = @"清理干净了";
+                [hud hide:YES afterDelay:0.5f];
+            }];
         }
             break;
             
         case 2: {
+            [Appirater rateApp];
+        }
+            break;
+            
+        case 3: {
             AboutViewController *aboutViewController = [[AboutViewController alloc] init];
             [self.navigationController pushViewController:aboutViewController animated:YES];
         }
