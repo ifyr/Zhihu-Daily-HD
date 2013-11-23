@@ -14,6 +14,8 @@
 #import "ModelUtils.h"
 #import "Emoji.h"
 
+#define kViewPortScale  1.3
+
 static char *keySharingRetryed;
 
 @interface NewsDetailViewController () <UIWebViewDelegate>
@@ -297,7 +299,7 @@ static char *keySharingRetryed;
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if ([[webView.request.URL absoluteString] isEqualToString:@"about:blank"]) {
-        [webView.scrollView setContentOffset:CGPointMake(0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 150 : 100) animated:NO];
+        [webView.scrollView setContentOffset:CGPointMake(0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 150 * kViewPortScale : 100 * kViewPortScale) animated:NO];
     }
     [[MBProgressHUD HUDForView:self.view] hide:YES];
 }
