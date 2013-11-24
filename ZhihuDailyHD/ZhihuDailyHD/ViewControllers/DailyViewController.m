@@ -347,14 +347,35 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
     
     MONewsItem *news = [self.dailyNews news][indexPath.row];
     
-    NSString *url;
-    if ([self.reachability isReachableViaWiFi]) {
-        url = news.image;
+    if ( ! [self.reachability isReachable]) {
+        __weak NewsCollectionCell *weakCell = cell;
+        [cell.imageView setImageWithURL:[NSURL URLWithString:news.image]
+                       placeholderImage:[UIImage imageNamed:@"placeholder"]
+                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                                  if ( ! image) {
+                                      [weakCell.imageView setImageWithURL:[NSURL URLWithString:news.thumbnail]
+                                                         placeholderImage:[UIImage imageNamed:@"placeholder"]];
+                                      
+                                  }
+                              }];
     }
-    if ( ! [url length]) {
-        url = news.thumbnail;
+    else if ([self.reachability isReachableViaWiFi]) {
+        [cell.imageView setImageWithURL:[NSURL URLWithString:news.image] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        
+        //also download thumbnails
+        [[SDWebImageManager sharedManager] downloadWithURL:[NSURL URLWithString:news.thumbnail]
+                                                   options:0
+                                                  progress:^(NSUInteger receivedSize, long long expectedSize) {
+                                                      
+                                                  }
+                                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                                                     
+                                                 }];
     }
-    [cell.imageView setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    else {
+        [cell.imageView setImageWithURL:[NSURL URLWithString:news.thumbnail] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    }
+
     cell.titleLabel.text = [news title];
     
     return cell;
