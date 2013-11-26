@@ -46,12 +46,12 @@ The road map for deployment on App Store.
 		<td>1.2.0</td>
 		<td>4</td>
 		<td>2013-11-23</td>
-		<td>Doing</td>
+		<td>Done</td>
 		<td>
 			<ul>
 				<li>[DONE] Swipe gestures</li>
 				<li>[DONE] Latest days' articles</li>
-				<li>[TODO] Offline reading</li>
+				<li>[DONE] Offline reading</li>
 			</ul>
 		</td>
 	</tr>
@@ -59,9 +59,10 @@ The road map for deployment on App Store.
 		<td>1.3.0</td>
 		<td>5</td>
 		<td>2013-12-31</td>
-		<td>ToDo</td>
+		<td>Doing</td>
 		<td>
 			<ul>
+				<li>[TODO] Favorite articles</li>
 				<li>[TODO] Slogon page with ripple effect</li>
 				<li>[TODO] Font resizing</li>
 				<li>[TODO] Night mode</li>
