@@ -56,6 +56,10 @@
     return [self newsOnDate:dateString];
 }
 
+- (void)clearMemmory {
+    [self.beforeNews removeAllObjects];
+}
+
 - (void)loadCache {
     CDNewsItem *latestItem = [CDNewsItem MR_findFirstOrderedByAttribute:@"date" ascending:NO];
     if ( ! latestItem) {

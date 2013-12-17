@@ -17,6 +17,8 @@
 - (MODailyNews *)newsOnDate:(NSString *)dateString;
 - (MODailyNews *)newsBeforeDays:(NSInteger)dateInterval;
 
+- (void)clearMemmory;
+
 // The dateString format must be as '20131129'
 - (void)reloadNewsOnDate:(NSString *)dateString result:(void (^)(BOOL success, MODailyNews *dailyNews))loadOver;
 - (void)reloadNewsOnDate:(NSString *)dateString usingCache:(BOOL)cache result:(void (^)(BOOL success, MODailyNews *dailyNews, BOOL cached))loadOver;

@@ -46,6 +46,8 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
 
 - (void)preloadDetailForDailyNews:(MODailyNews *)dailyNewsToPreload;
 
+- (void)refreshTitleForDate:(NSString *)date offlined:(BOOL)offlined;
+
 @end
 
 @implementation DailyViewController
@@ -76,7 +78,7 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
     [self.view addSubview:collectionView];
     self.collectionView = collectionView;
     
-    self.title = @"知乎日报";
+    self.title = @"知乎日报 - 往左拖动可以看往期";
     
     self.hidesBottomBarWhenPushed = YES;
     
@@ -246,22 +248,23 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
                                             animated:NO];
     }
     
-    if ([dailyNews.date isEqualToString:[[DailyNewsDataCenter sharedInstance] latestNews].date]) {
-        self.title = @"知乎日报";
-    }
-    else {
-        NSDateFormatter *dateFormatter = [DailyNewsDataCenter dateFormatter];
-        NSDate *newsDate = [dateFormatter dateFromString:dailyNews.date];
-        self.title = [NSString stringWithFormat:@"知乎日报 @ %@", [dateFormatter stringFromDate:[newsDate dateByAddingTimeInterval:24 * 3600]]];
-    }
+    [self refreshTitleForDate:dailyNews.date offlined:NO];
     
     [self preloadDetailForDailyNews:dailyNews];
 }
 
 - (void)preloadDetailForDailyNews:(MODailyNews *)dailyNewsToPreload {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     static ExposeDailyNewsBlock exposeDailyNewsBlock;
+    __weak __typeof(&*self) weakSelf = self;
     exposeDailyNewsBlock = ^(MODailyNews *dailyNews, NSInteger index) {
         if ((index < 0) || (index >= [dailyNews.news count])) {
+            if (index > 0) {    //All the news items are preloaded.
+                if (dailyNews == weakSelf.dailyNews) {
+                    [weakSelf refreshTitleForDate:dailyNews.date offlined:YES];
+                }
+            }
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             return;
         }
         [[DailyNewsDataCenter sharedInstance] exposeTheNewsDetail:dailyNews.news[index]
@@ -270,12 +273,24 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
                                                                    exposeDailyNewsBlock(dailyNews, [dailyNews.news indexOfObject:newsItem] + 1);
                                                                }
                                                                else {
+                                                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                                                    return;
                                                                }
                                                            }];
     };
     
     exposeDailyNewsBlock(dailyNewsToPreload, 0);
+}
+
+- (void)refreshTitleForDate:(NSString *)date offlined:(BOOL)offlined {
+    if ([date isEqualToString:[[DailyNewsDataCenter sharedInstance] latestNews].date]) {
+        self.title = [NSString stringWithFormat:@"知乎日报%@", (offlined ? @" [已离线缓存]" : @"")];
+    }
+    else {
+        NSDateFormatter *dateFormatter = [DailyNewsDataCenter dateFormatter];
+        NSDate *newsDate = [dateFormatter dateFromString:date];
+        self.title = [NSString stringWithFormat:@"知乎日报 @ %@%@", [dateFormatter stringFromDate:[newsDate dateByAddingTimeInterval:24 * 3600]], (offlined ? @" [已离线缓存]" : @"")];
+    }
 }
 
 #pragma mark - UIPopoverControllerDelegate
@@ -309,6 +324,10 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
                 hud.labelText = @"清理干净了";
                 [hud hide:YES afterDelay:0.5f];
             }];
+            
+            [[DailyNewsDataCenter sharedInstance] clearMemmory];
+            
+            [self refreshTitleForDate:self.dailyNews.date offlined:NO];
         }
             break;
             
@@ -318,6 +337,12 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
             break;
             
         case 3: {
+            AboutViewController *aboutViewController = [[AboutViewController alloc] init];
+            [self.navigationController pushViewController:aboutViewController animated:YES];
+        }
+            break;
+            
+        case 4: {
             AboutViewController *aboutViewController = [[AboutViewController alloc] init];
             [self.navigationController pushViewController:aboutViewController animated:YES];
         }

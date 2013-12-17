@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    self.optionTitles = @[@"☂ 说问题，提建议", @"🛀 帮我清理一把", @"★ 打个分支持一下", @"☃ 关于知乎日报HD"];
+    self.optionTitles = @[@"☂ 说问题，提建议", @"🛀 帮我清理一把", @"★ 打个分支持一下", @"🌀 这玩意儿怎么用", @"☃ 关于知乎日报HD"];
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
