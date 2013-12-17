@@ -27,6 +27,8 @@
 		90286ECE17C4FD1D00D45318 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90286ECD17C4FD1D00D45318 /* AboutViewController.m */; };
 		90286ED117C50A8D00D45318 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 90286ED017C50A8D00D45318 /* about.html */; };
 		9058E09C1860C169003BE76B /* YouDaoNoteConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9058E09B1860C169003BE76B /* YouDaoNoteConnection.framework */; };
+		9058E09E1860C330003BE76B /* faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 9058E09D1860C330003BE76B /* faq.html */; };
+		9058E0A11860C37D003BE76B /* FaqViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9058E0A01860C37D003BE76B /* FaqViewController.m */; };
 		9062D0C1183A703900326E06 /* ModelUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9062D0C0183A703900326E06 /* ModelUtils.m */; };
 		9062D0C3183A721600326E06 /* template_news_detail.html in Resources */ = {isa = PBXBuildFile; fileRef = 9062D0C2183A721600326E06 /* template_news_detail.html */; };
 		9068EB92179A9AF800BA143D /* SloganViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9068EB91179A9AF800BA143D /* SloganViewController.m */; };
@@ -121,6 +123,9 @@
 		90286ECD17C4FD1D00D45318 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		90286ED017C50A8D00D45318 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		9058E09B1860C169003BE76B /* YouDaoNoteConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YouDaoNoteConnection.framework; sourceTree = "<group>"; };
+		9058E09D1860C330003BE76B /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq.html; sourceTree = "<group>"; };
+		9058E09F1860C37D003BE76B /* FaqViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaqViewController.h; sourceTree = "<group>"; };
+		9058E0A01860C37D003BE76B /* FaqViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaqViewController.m; sourceTree = "<group>"; };
 		9062D0BF183A703900326E06 /* ModelUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelUtils.h; sourceTree = "<group>"; };
 		9062D0C0183A703900326E06 /* ModelUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelUtils.m; sourceTree = "<group>"; };
 		9062D0C2183A721600326E06 /* template_news_detail.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template_news_detail.html; sourceTree = "<group>"; };
@@ -363,6 +368,7 @@
 			children = (
 				9062D0C2183A721600326E06 /* template_news_detail.html */,
 				90286ED017C50A8D00D45318 /* about.html */,
+				9058E09D1860C330003BE76B /* faq.html */,
 			);
 			path = Html;
 			sourceTree = "<group>";
@@ -389,6 +395,8 @@
 				90A728BD17C3BB7D00B19BA0 /* OptionsViewController.m */,
 				90286ECC17C4FD1D00D45318 /* AboutViewController.h */,
 				90286ECD17C4FD1D00D45318 /* AboutViewController.m */,
+				9058E09F1860C37D003BE76B /* FaqViewController.h */,
+				9058E0A01860C37D003BE76B /* FaqViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -630,6 +638,7 @@
 				90892F10183685F60097E77F /* ShareSDKiPadDefaultShareViewUI.bundle in Resources */,
 				9020E1C7177F05FD0080D77C /* Default-Landscape@2x~ipad.png in Resources */,
 				906A71A41816D91E004A2D8C /* Icon-Small@2x.png in Resources */,
+				9058E09E1860C330003BE76B /* faq.html in Resources */,
 				9020E1C8177F05FD0080D77C /* Default-Landscape~ipad.png in Resources */,
 				90892F0D183685F60097E77F /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				90DD6DB1183295F90029EC33 /* umFeedback.bundle in Resources */,
@@ -694,6 +703,7 @@
 				9020E174177EFB0D0080D77C /* AppDelegate.m in Sources */,
 				9068EB92179A9AF800BA143D /* SloganViewController.m in Sources */,
 				907DAD95179AA98C00CB7618 /* MODailyNews.m in Sources */,
+				9058E0A11860C37D003BE76B /* FaqViewController.m in Sources */,
 				907DAD98179AA9D300CB7618 /* MONewsItem.m in Sources */,
 				907DAD9E179AA9F800CB7618 /* MOBase.m in Sources */,
 				90C1DC1A183E6D46008F8C06 /* EmojiMapSymbols.m in Sources */,

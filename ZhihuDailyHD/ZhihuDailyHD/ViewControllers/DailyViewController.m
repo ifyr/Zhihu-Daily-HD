@@ -19,6 +19,7 @@
 #import "NewsDetailViewController.h"
 #import "OptionsViewController.h"
 #import "AboutViewController.h"
+#import "FaqViewController.h"
 
 typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
 
@@ -337,8 +338,8 @@ typedef void (^ExposeDailyNewsBlock)(MODailyNews *dailyNews, NSInteger index);
             break;
             
         case 3: {
-            AboutViewController *aboutViewController = [[AboutViewController alloc] init];
-            [self.navigationController pushViewController:aboutViewController animated:YES];
+            FaqViewController *faqViewController = [[FaqViewController alloc] init];
+            [self.navigationController pushViewController:faqViewController animated:YES];
         }
             break;
             
