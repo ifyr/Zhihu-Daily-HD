@@ -174,6 +174,7 @@ static char *keySharingRetryed;
                           ShareTypeWeixiSession,
                           ShareTypePocket,
                           ShareTypeEvernote,
+                          ShareTypeYouDaoNote,
                           ShareTypeMail,
                           ShareTypeCopy,
                           ShareTypeAirPrint,

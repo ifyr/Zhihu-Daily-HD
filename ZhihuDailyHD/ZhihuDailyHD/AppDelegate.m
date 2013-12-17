@@ -136,6 +136,11 @@
                      qqApiInterfaceCls:[QQApiInterface class]
                        tencentOAuthCls:[TencentOAuth class]];
     
+    //添加有道云笔记应用
+    [ShareSDK connectYouDaoNoteWithConsumerKey:YouDaoNoteAppKey
+                                consumerSecret:YouDaoNoteAppSecret
+                                   redirectUri:YouDaoNoteCallbackUrl];
+    
     //添加Pocket应用
     [ShareSDK connectPocketWithConsumerKey:PocketAppSecret
                                redirectUri:PocketCallbackUrl];

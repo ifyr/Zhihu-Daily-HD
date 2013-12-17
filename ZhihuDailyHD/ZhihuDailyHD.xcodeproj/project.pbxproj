@@ -26,6 +26,7 @@
 		9020E1CE177F05FD0080D77C /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9020E1C5177F05FD0080D77C /* Icon-Small-50@2x.png */; };
 		90286ECE17C4FD1D00D45318 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90286ECD17C4FD1D00D45318 /* AboutViewController.m */; };
 		90286ED117C50A8D00D45318 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 90286ED017C50A8D00D45318 /* about.html */; };
+		9058E09C1860C169003BE76B /* YouDaoNoteConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9058E09B1860C169003BE76B /* YouDaoNoteConnection.framework */; };
 		9062D0C1183A703900326E06 /* ModelUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9062D0C0183A703900326E06 /* ModelUtils.m */; };
 		9062D0C3183A721600326E06 /* template_news_detail.html in Resources */ = {isa = PBXBuildFile; fileRef = 9062D0C2183A721600326E06 /* template_news_detail.html */; };
 		9068EB92179A9AF800BA143D /* SloganViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9068EB91179A9AF800BA143D /* SloganViewController.m */; };
@@ -119,6 +120,7 @@
 		90286ECC17C4FD1D00D45318 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		90286ECD17C4FD1D00D45318 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		90286ED017C50A8D00D45318 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
+		9058E09B1860C169003BE76B /* YouDaoNoteConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YouDaoNoteConnection.framework; sourceTree = "<group>"; };
 		9062D0BF183A703900326E06 /* ModelUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelUtils.h; sourceTree = "<group>"; };
 		9062D0C0183A703900326E06 /* ModelUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelUtils.m; sourceTree = "<group>"; };
 		9062D0C2183A721600326E06 /* template_news_detail.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template_news_detail.html; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				90892F05183685F50097E77F /* libSinaWeiboSDK.a in Frameworks */,
 				90892EF2183685F50097E77F /* QZoneConnection.framework in Frameworks */,
 				90892EFE183685F50097E77F /* AGCommon.framework in Frameworks */,
+				9058E09C1860C169003BE76B /* YouDaoNoteConnection.framework in Frameworks */,
 				90892F0F183685F60097E77F /* ShareSDK.framework in Frameworks */,
 				90892EFC183685F50097E77F /* WeChatConnection.framework in Frameworks */,
 				90892F01183685F50097E77F /* ShareSDKCoreService.framework in Frameworks */,
@@ -451,6 +454,7 @@
 				90892EAE183685F50097E77F /* SMSConnection.framework */,
 				90892EB2183685F50097E77F /* TencentWeiboConnection.framework */,
 				90892EB5183685F50097E77F /* WeChatConnection.framework */,
+				9058E09B1860C169003BE76B /* YouDaoNoteConnection.framework */,
 			);
 			path = Connection;
 			sourceTree = "<group>";

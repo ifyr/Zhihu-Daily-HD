@@ -33,6 +33,10 @@
 #define YinXiangAppKey          @"jcccn-3084"
 #define YinXiangAppSecret       @"6cea171d8591f75b"
 
+#define YouDaoNoteAppKey        @"bc87baf861d75ef1bbf738559d380777"
+#define YouDaoNoteAppSecret     @"0482fd9f54a05556af63c6519da343ab"
+#define YouDaoNoteCallbackUrl   @"http://www.senseforce.com"
+
 #define PocketAppSecret         @"20427-e7980754077d3b19739c8c34"
 #define PocketCallbackUrl       @"pocketapp89757"
 
