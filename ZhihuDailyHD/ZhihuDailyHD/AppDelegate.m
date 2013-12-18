@@ -97,6 +97,8 @@
 - (void)configUmeng {
     [MobClick startWithAppkey:UmengAppKey];
     [MobClick setAppVersion:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    
+    [MobClick checkUpdate];
 }
 
 - (void)configAppRating {
