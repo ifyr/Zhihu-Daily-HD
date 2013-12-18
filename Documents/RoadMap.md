@@ -56,9 +56,22 @@ The road map for deployment on App Store.
 		</td>
 	</tr>
 	<tr>
-		<td>1.3.0</td>
+		<td>1.2.1</td>
 		<td>5</td>
-		<td>2013-12-31</td>
+		<td>2013-12-22</td>
+		<td>Done</td>
+		<td>
+			<ul>
+				<li>[DONE] YoudaoNote sharing</li>
+				<li>[DONE] FAQ page</li>
+				<li>[DONE] Offline and swipe hint</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>1.3.0</td>
+		<td>6</td>
+		<td>2014-01-11</td>
 		<td>Doing</td>
 		<td>
 			<ul>
